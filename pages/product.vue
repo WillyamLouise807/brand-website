@@ -50,42 +50,46 @@
 
       
       <!-- Red Background -->
-      <div class="bg-red-600 rounded-3xl w-full py-20 text-center relative">
-        <h1 class="text-white text-4xl">
+      <div class="bg-red-600 rounded-3xl w-full py-12 text-center relative">
+        <h1 class="text-white text-4xl mb-12">
           FIND OUR PRODUCTS
         </h1>
       </div>
 
       <!-- Dark Red Background -->
       <div class="bg-red-900 -mt-10 relative
-            grid grid-cols-[1fr_1fr_1fr_1fr_60px] 
+            grid grid-cols-[1fr_1fr_1fr_1fr_auto] 
             items-end
             gap-2
             rounded-3xl 
             max-w-7xl
             mx-auto
-            pl-8 py-6">
+            px-8 py-6">
         <div class="text-white">
           <p>Product Categories</p>
           <select class="w-full rounded-md px-3 py-1 text-sm text-black">
             <option>All</option>
+            <option>$DATABASE</option>
           </select>
         </div>
         <div class="text-white">
           <p>Finishing</p>
           <select class="w-full rounded-md px-3 py-1 text-sm text-black">
             <option>All</option>
+            <option>$DATABASE</option>
           </select>
         </div>
         <div class="text-white">
           <p>Material</p>
           <select class="w-full rounded-md px-3 py-1 text-sm text-black">
             <option>All</option>
+            <option>$DATABASE</option>
           </select>
         </div>
         <div class="text-white">
           <p>Product Name / Code</p>
           <input type="text" class="w-full rounded-md px-3 py-1 text-sm text-black" placeholder="Search...">
+          <!-- <option>$DATABASE</option> -->
         </div>
         <div class=" bg-red-600 text-white items-center flex justify-center rounded-xl h-8 w-8">
           <p></p>
@@ -103,7 +107,6 @@
           </svg>
           </button>
         </div>
-
       </div>
     </div>
 
