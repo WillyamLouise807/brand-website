@@ -1,6 +1,6 @@
 <template>
   <div class="font-poppins">
-    <!-- Hero Swiper Section -->
+    <!-- Hero Swiper Section Command-->
     <div 
       class="relative w-full h-screen overflow-hidden"
       @mouseenter="handleMouseEnter"
@@ -11,7 +11,7 @@
         class="flex transition-transform duration-500 ease-in-out h-full"
         :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
       >
-        <!-- Slide 1 -->
+        <!-- Slide 1 Command-->
         <div class="min-w-full h-full relative">
           <img 
             src="/gambar-index-1.png" 
@@ -20,7 +20,7 @@
           />
         </div>
         
-        <!-- Slide 2 -->
+        <!-- Slide 2 Command-->
         <div class="min-w-full h-full relative">
           <img 
             src="/gambar-index-2.png" 
@@ -29,7 +29,7 @@
           />
         </div>
         
-        <!-- Slide 3 -->
+        <!-- Slide 3 Command-->
         <div class="min-w-full h-full relative">
           <img 
             src="/gambar-index-3.png" 
@@ -39,7 +39,7 @@
         </div>
       </div>
 
-      <!-- Dots Indicator -->
+      <!-- Dots Indicator Command-->
       <div class="absolute bottom-32 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
         <button
           v-for="(slide, index) in totalSlides"
@@ -54,7 +54,7 @@
         />
       </div>
 
-      <!-- Auto-play progress indicator -->
+      <!-- Auto-play progress indicator Command-->
       <div class="absolute bottom-0 left-0 w-full h-1 bg-black bg-opacity-20">
         <div 
           class="h-full bg-red-500 transition-all duration-100 ease-linear"
@@ -63,13 +63,13 @@
       </div>
     </div>
 
-    <!-- Our Products Section - Overlapping -->
+    <!-- Our Products Section - Overlapping Command-->
     <div class="relative -mt-24 z-30">
       <div class="container mx-auto">
         <div class="bg-white rounded-3xl shadow-2xl">
           <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
             
-            <!-- Left Side - Product Image -->
+            <!-- Left Side - Product Image Command-->
             <div class="lg:w-1/2 flex justify-center lg:justify-start">
               <div class="relative w-full bg-gray-100 
                           rounded-t-3xl rounded-b-3xl lg:rounded-tr-none lg:rounded-br-none 
@@ -82,15 +82,15 @@
               </div>
             </div>
 
-            <!-- Right Side - Content -->
-            <div class="lg:w-1/2 text-center lg:text-left px-6 py-12">
+            <!-- Right Side - Content Command-->
+            <div class="lg:w-1/2 text-center lg:text-left px-6 py-12 font-poppins">
               
-              <!-- Title -->
+              <!-- Title Command-->
               <h2 class="text-4xl lg:text-5xl text-black text-center mb-6">
                 OUR PRODUCTS
               </h2>
               
-              <!-- Description -->
+              <!-- Description Command-->
               <p class="text-black text-lg leading-relaxed mb-8 pr-16 text-justify">
                 Discover the full range of <span class="font-semibold">Glatino Premium</span> products, from glass accessories to mechanical lock solutions for aluminum and wooden doors. We also offer <span class="font-semibold">smart locks</span> designed to meet advanced, high-technology security needs.
               </p>              
@@ -100,10 +100,10 @@
       </div>
     </div>
 
-    <!-- Additional spacing for next sections -->
+    <!-- Additional spacing for next sections Command-->
     <div class="container mx-auto py-16">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8 justify-center items-center">
-        <!-- Placeholder for additional content -->
+        <!-- Placeholder for additional content Command-->
         <div class="group flex flex-col bg-gray-100 rounded-3xl 
                     border-2 border-transparent
                     transition-all duration-300 ease-out
@@ -121,7 +121,7 @@
             </button>
           </div>
         </div>                
-        <!-- Placeholder for additional content -->
+        <!-- Placeholder for additional content Command-->
         <div class="group flex flex-col bg-gray-100 rounded-3xl 
                     border-2 border-transparent
                     transition-all duration-300 ease-out
@@ -139,7 +139,7 @@
             </button>
           </div>
         </div>                
-        <!-- Placeholder for additional content -->
+        <!-- Placeholder for additional content Command-->
         <div class="group flex flex-col bg-gray-100 rounded-3xl 
                     border-2 border-transparent
                     transition-all duration-300 ease-out
@@ -157,7 +157,7 @@
             </button>
           </div>
         </div>                
-        <!-- Placeholder for additional content -->
+        <!-- Placeholder for additional content Command-->
         <div class="group flex flex-col bg-gray-100 rounded-3xl 
                     border-2 border-transparent
                     transition-all duration-300 ease-out
@@ -178,15 +178,15 @@
       </div>
     </div>
 
-    <!-- Section e-catalog -->
+    <!-- Section e-catalog Command -->
     <section
       class="relative w-full h-[1063px] bg-center bg-cover flex items-center justify-center"
       style="background-image: url('/e-catalog-background.png')"
     >
-      <!-- overlay gelap -->
+      <!-- overlay gelap Command -->
       <div class="absolute inset-0 bg-red-950 bg-opacity-50"></div>
 
-      <!-- content -->
+      <!-- content Command-->
       <div class="relative z-10 text-center px-6">
         <h1 class="text-white text-3xl md:text-5xl uppercase leading-tight mb-6 font-poppins">
           Where Premium Remarkable Quality <br />
@@ -202,7 +202,7 @@
       </div>
     </section>
     
-    <!-- Reviews Section -->
+    <!-- Reviews Section Command-->
     <div class="container mx-auto py-16 px-6">
       <!-- Header -->
       <div class="flex justify-between items-center mb-10">
@@ -210,7 +210,7 @@
           What People Say
         </h2>
         
-        <!-- Navigation Arrows -->
+        <!-- Navigation Arrows Command-->
         <div class="flex gap-4">
           <button
             @click="previousReview"
@@ -235,7 +235,7 @@
         </div>
       </div>
 
-      <!-- Reviews Carousel with Infinite Loop -->
+      <!-- Reviews Carousel with Infinite Loop Command-->
       <div class="relative overflow-visible">
         <div 
           ref="carouselTrack"
@@ -250,20 +250,20 @@
             :class="[
               'min-w-[calc(33.333%-1rem)] bg-white rounded-2xl p-8 border border-gray-200',
               'transition-all duration-300',
-              // Blur effect - show 3 cards clearly, blur the rest
+              // Blur effect - show 3 cards clearly, blur the rest Command
               isCardVisible(index)
                 ? 'opacity-100 blur-0 scale-100 hover:shadow-2xl hover:-translate-y-2'
                 : 'opacity-40 blur-[2px] scale-95'
             ]"
           >
-            <!-- Stars -->
+            <!-- Stars Command-->
             <div class="flex gap-1 mb-4">
               <svg v-for="star in 5" :key="star" class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
                 <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
               </svg>
             </div>
 
-            <!-- Name with Verification -->
+            <!-- Name with Verification Command -->
             <div class="flex items-center gap-2 mb-4">
               <span class="font-semibold text-lg text-black">{{ review.name }}</span>
               <svg class="w-5 h-5 text-green-500 fill-current" viewBox="0 0 20 20">
@@ -271,7 +271,7 @@
               </svg>
             </div>
 
-            <!-- Review Text -->
+            <!-- Review Text Command -->
             <p class="text-gray-700 text-sm leading-relaxed text-justify">
               {{ review.text }}
             </p>
@@ -460,7 +460,7 @@ button:hover {
 
 /* Prevent text selection */
 .font-poppins {
-  user-select: none;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Additional hover effects */

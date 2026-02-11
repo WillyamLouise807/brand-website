@@ -84,7 +84,7 @@
   border-radius: 9999px;
 }
 
-poppins-font {
+.font-poppins {
   font-family: 'Poppins', sans-serif;
 }
 </style>
