@@ -2,7 +2,7 @@
   <div class="font-poppins">
     <!-- Background Image Section -->
     <div 
-      class="relative w-full h-[780px] bg-cover bg-center bg-no-repeat"
+      class="relative w-full h-[680px] bg-cover bg-center bg-no-repeat"
       style="background-image: url('/product.png')"
     >
       <!-- Dark Overlay (optional, untuk kontras yang lebih baik) -->
