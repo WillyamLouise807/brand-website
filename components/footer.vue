@@ -170,4 +170,8 @@ a {
 .hover\:bg-green-700:hover {
   background-color: rgb(21 128 61);
 }
+
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
 </style>
