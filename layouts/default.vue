@@ -16,7 +16,7 @@
         <div class="flex-1">
           <div class="flex justify-center gap-8 font-bold">
             <NuxtLink to="/" class="nav-link" exact>Home</NuxtLink>
-            <NuxtLink to="/product" class="nav-link">Products</NuxtLink>
+            <NuxtLink to="/product" class="nav-link">Product</NuxtLink>
             <NuxtLink to="/e-catalog" class="nav-link">E-Catalog</NuxtLink>
             <NuxtLink to="/contact-us" class="nav-link">Contact</NuxtLink>
           </div>
