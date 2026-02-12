@@ -108,6 +108,25 @@
           </button>
         </div>
       </div>
+
+      <!-- Filter tidak aktif page ini muncul -->
+      <h1 class="font-semibold text-3xl text-center py-12">Categories</h1>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center items-center">
+        <div>
+          1
+        </div>
+        <div>
+          1
+        </div>
+        <div>
+          1
+        </div>
+      </div>
+    </div>
+
+    <!-- You can add more content here if needed -->
+    <div class="container mx-auto">
+      <h1 class="font-semibold text-3xl text-center">Categories</h1>
     </div>
 
   </div>
