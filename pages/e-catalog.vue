@@ -1,5 +1,5 @@
 <template>
-  <div class="font-poppins">
+  <div class="font-gotham">
     <!-- Background Image Section -->
     <div 
       class="relative w-full h-[680px] bg-cover bg-center bg-no-repeat"
@@ -57,5 +57,7 @@ import FooterComponent from '~/components/footer.vue'
   font-family: 'Poppins', sans-serif;
 }
 
-
+.font-gotham {
+  font-family: 'Gotham', sans-serif;
+}
 </style>

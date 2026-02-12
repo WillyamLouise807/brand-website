@@ -1,7 +1,7 @@
 <template>
   <!-- NAVBAR -->
   <header
-    class="fixed top-0 left-0 w-full z-50 bg-white shadow font-poppins"
+    class="fixed top-0 left-0 w-full z-50 bg-white shadow font-gotham"
   >
     <div class="container mx-auto">
       <div class="flex items-center p-4 h-20">
@@ -14,7 +14,7 @@
 
         <!-- Menu -->
         <div class="flex-1">
-          <div class="flex justify-center gap-8 font-bold">
+          <div class="flex justify-center gap-8 font-semibold">
             <NuxtLink to="/" class="nav-link" exact>Home</NuxtLink>
             <NuxtLink to="/product" class="nav-link">Product</NuxtLink>
             <NuxtLink to="/e-catalog" class="nav-link">E-Catalogue</NuxtLink>
@@ -86,5 +86,9 @@
 
 .font-poppins {
   font-family: 'Poppins', sans-serif;
+}
+
+.font-gotham {
+  font-family: 'Gotham', sans-serif;
 }
 </style>

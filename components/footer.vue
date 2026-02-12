@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-red-950 text-white font-poppins">
+  <footer class="bg-red-950 text-white font-gotham">
     <!-- Main Footer Content -->
     <div class="max-w-screen-2xl mx-auto w-full px-6 py-12">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -173,5 +173,9 @@ a {
 
 .font-poppins {
   font-family: 'Poppins', sans-serif;
+}
+
+.font-gotham {
+  font-family: 'Gotham', sans-serif;
 }
 </style>

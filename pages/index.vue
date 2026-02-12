@@ -1,5 +1,5 @@
 <template>
-  <div class="font-poppins">
+  <div class="font-gotham">
     <!-- Hero Swiper Section Command-->
     <div 
       class="relative w-full h-screen overflow-hidden"
@@ -83,7 +83,7 @@
             </div>
 
             <!-- Right Side - Content Command-->
-            <div class="lg:w-1/2 text-center lg:text-left px-6 py-12 font-poppins">
+            <div class="lg:w-1/2 text-center lg:text-left px-6 py-12 font-gotham">
               
               <!-- Title Command-->
               <h2 class="text-4xl lg:text-5xl text-black text-center mb-6">
@@ -188,7 +188,7 @@
 
       <!-- content Command-->
       <div class="relative z-10 text-center px-6">
-        <h1 class="text-white text-3xl md:text-5xl uppercase leading-tight mb-6 font-poppins">
+        <h1 class="text-white text-3xl md:text-5xl uppercase leading-tight mb-6 font-gotham">
           Where Premium Remarkable Quality <br />
           meets modern lifestyle
         </h1>
@@ -461,6 +461,10 @@ button:hover {
 /* Prevent text selection */
 .font-poppins {
   font-family: 'Poppins', sans-serif;
+}
+
+.font-gotham {
+  font-family: 'Gotham', sans-serif;
 }
 
 /* Additional hover effects */

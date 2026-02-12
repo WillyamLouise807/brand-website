@@ -1,5 +1,5 @@
 <template>
-  <div class="font-poppins">
+  <div class="font-gotham">
     <!-- Background Image Section -->
     <div 
       class="relative w-full h-[680px] bg-cover bg-center bg-no-repeat"
@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <div class="container mx-auto py-16 font-poppins">
+    <div class="container mx-auto py-16 font-gotham">
       <!-- Breadcrumb -->
       <div class="mb-8">
         <nav class="flex" aria-label="Breadcrumb">
@@ -125,5 +125,7 @@ import FooterComponent from '~/components/footer.vue'
   font-family: 'Poppins', sans-serif;
 }
 
-
+.font-gotham {
+  font-family: 'Gotham', sans-serif;
+}
 </style>
