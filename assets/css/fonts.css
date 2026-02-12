@@ -1,23 +1,7 @@
 @font-face {
   font-family: 'Gotham';
-  src: url('/fonts/Gotham-Light.otf') format('opentype');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Gotham';
-  src: url('/fonts/Gotham-Regular.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Gotham';
   src: url('/fonts/Gotham-Book.otf') format('opentype');
-  font-weight: 500;
+  font-weight: 400; /* default */
   font-style: normal;
   font-display: swap;
 }
@@ -25,7 +9,7 @@
 @font-face {
   font-family: 'Gotham';
   src: url('/fonts/Gotham-Medium.otf') format('opentype');
-  font-weight: 600;
+  font-weight: 600; /* semi bold */
   font-style: normal;
   font-display: swap;
 }
@@ -33,7 +17,7 @@
 @font-face {
   font-family: 'Gotham';
   src: url('/fonts/Gotham-Bold.otf') format('opentype');
-  font-weight: 700;
+  font-weight: 700; /* bold */
   font-style: normal;
   font-display: swap;
 }
