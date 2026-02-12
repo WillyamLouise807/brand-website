@@ -31,15 +31,17 @@
       <hr class="border-gray-300 mb-12"/> 
 
       <div class="grid grid-cols-3 gap-8">
-        <div class="relative">
-          <img src="/catalog.png" alt="" class="w-full">
+        <a href="/assets/catalog-glatino-premium.pdf" download>
+          <div class="relative cursor-pointer">
+            <img src="/catalog.png" alt="" class="w-full">
 
-          <!-- Text Overlay -->
-          <div class="absolute bottom-4 left-4 text-white">
-            <p class="text-3xl font-semibold">GLATINO PREMIUM</p>
-            <p class="text-lg font-thin">Download</p>
+            <!-- Text Overlay -->
+            <div class="absolute bottom-4 left-4 text-white">
+              <p class="text-3xl font-semibold">GLATINO PREMIUM</p>
+              <p class="text-lg font-thin">Download</p>
+            </div>
           </div>
-        </div>        
+        </a>
       </div>
     </div>
   </div>
