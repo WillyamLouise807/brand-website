@@ -188,13 +188,13 @@
 
       <!-- content Command-->
       <div class="relative z-10 text-center px-6">
-        <h1 class="text-white text-3xl md:text-5xl uppercase leading-tight mb-6 font-gotham">
+        <h1 class="text-white text-3xl md:text-5xl uppercase leading-tight mb-16 font-gotham">
           Where Premium Remarkable Quality <br />
           meets modern lifestyle
         </h1>
 
         <button
-          class="bg-red-600 text-white px-8 py-3 rounded-full font-medium
+          class="bg-red-600 text-white text-2xl px-32 py-6 rounded-full font-medium
                 hover:text-white transition-colors duration-300"
         >
           E-Catalog
