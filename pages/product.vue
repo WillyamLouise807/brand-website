@@ -110,24 +110,90 @@
       </div>
 
       <!-- Filter tidak aktif page ini muncul -->
-      <h1 class="font-semibold text-3xl text-center py-12">Categories</h1>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center items-center">
+      <h1 class="font-semibold text-3xl text-center py-12">Categories (Filter tidak Aktif)</h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 justify-center items-center">
         <div>
+          <!-- Ganti h-80 dengan tinggi yang diinginkan -->
+          <div class="relative w-full h-[500px] rounded-2xl overflow-hidden group cursor-pointer border-4 border-red-100 shadow-lg shadow-red-300/50">
+            <!-- Background Image -->
+            <div 
+              class="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+              :style="{ backgroundImage: 'url(/cover-catalog/handle-roses.png)' }"
+            >
+              <!-- Overlay Gradient -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+            </div>
+
+            <!-- Information Box - Positioned at bottom -->
+            <div class="absolute bottom-0 left-0 right-0">
+              <div class="bg-white/80 backdrop-blur-sm rounded-t-xl py-4 px-6 flex items-center justify-between shadow-lg">
+                <!-- Left Side - Text Information -->
+                <div class="flex-1">
+                  <h3 class="text-xl font-bold text-gray-900 mb-1">HANDLE ROSES $DATABASE</h3>
+                  <p class="text-gray-600 text-sm">View Product</p>
+                </div>
+
+                <!-- Right Side - Arrow Icon -->
+                <div class="ml-4">
+                  <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+                    <img 
+                      src="/arrow.png" 
+                      alt="Arrow" 
+                      class="w-6 h-6 filter invert brightness-0 text-white"
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div>
           1
         </div>
         <div>
           1
-        </div>
-        <div>
-          1
+        </div> -->
+      </div>
+
+      <!-- Filter aktif page ini muncul -->
+      <h1 class="font-semibold text-3xl text-center py-12">(Filter Aktif)</h1>
+
+      <!-- Breadcrumb -->
+      <div class="mb-8 font-gotham">
+        <nav class="flex" aria-label="Breadcrumb">
+          <ol class="inline-flex items-center space-x-1 md:space-x-2">
+            <li class="inline-flex items-center">
+              <a href="#" class="text-sm text-black hover:text-gray-900">($DATABASE) PRODUCT AVAILABLE</a>
+            </li>            
+          </ol>
+        </nav>
+      </div>
+            
+      <div class="grid grid-cols-5 gap-8 justify-center items-center">
+        <div class="relative w-full h-[400px] rounded-3xl overflow-hidden group cursor-pointer border-4 border-red-100 shadow-lg shadow-red-300/50 flex flex-col">
+          <!-- Gambar area - flex-1 mengisi sisa ruang -->
+          <div class="flex-1 relative">
+            <img 
+              src="/produk/201.png" 
+              alt="Handle Roses"
+              class="absolute inset-0 w-full h-full object-cover"
+            >
+          </div>
+          
+          <!-- Informasi produk di bagian bawah - tinggi otomatis sesuai content -->
+          <div class="bg-gray-100 rounded-t-3xl">
+            <p class="text-center py-6 px-4 m-0 uppercase font-semibold text-xl">
+              Handle Roses 201 HR-201 $DATABASE
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </div>    
 
     <!-- You can add more content here if needed -->
-    <div class="container mx-auto">
-      <h1 class="font-semibold text-3xl text-center">Categories</h1>
-    </div>
+    <!-- <div class="container mx-auto h-16">
+
+    </div> -->
 
   </div>
   <FooterComponent />
