@@ -18,7 +18,7 @@
             <NuxtLink to="/" class="nav-link" exact>Home</NuxtLink>
             <NuxtLink to="/product" class="nav-link">Product</NuxtLink>
             <NuxtLink to="/e-catalog" class="nav-link">E-Catalogue</NuxtLink>
-            <NuxtLink to="/contact-us" class="nav-link">Contact</NuxtLink>
+            <NuxtLink to="/contact-us" class="nav-link">Contact Us</NuxtLink>
           </div>
         </div>
 
