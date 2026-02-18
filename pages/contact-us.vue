@@ -25,25 +25,44 @@
     </div>    
   </div>
 
-  <div class="container mx-auto">
+  <div class="container mx-auto font-gotham">
     <!-- Gunakan transform translate untuk positioning yang lebih presisi -->
-    <div class="grid grid-cols-3 justify-items-center transform -translate-y-1/2">
+    <div class="grid grid-cols-3 justify-items-center -translate-y-1/2">
       <div class="bg-white rounded-full shadow-lg"> <!-- Tambah background dan shadow -->
-        <img src="/contact-logo-1.png" alt="" class="w-full h-auto">
+        <img src="/contact-logo-1.png" alt="" class="w-full h-auto">        
       </div>
       <div class="bg-white rounded-full shadow-lg"> <!-- Tambah background dan shadow -->
         <img src="/contact-logo-2.png" alt="" class="w-full h-auto">
       </div>
       <div class="bg-white rounded-full shadow-lg"> <!-- Tambah background dan shadow -->
         <img src="/contact-logo-3.png" alt="" class="w-full h-auto">
-      </div>      
+      </div>
     </div>
+    <div class="grid grid-cols-3 justify-items-center">
+      <div class=""> <!-- Tambah background dan shadow -->
+        <img src="/contact-1.png" alt="" class="w-[400px] h-auto">
+        <p class="text-center bg-[#ED1D25] text-white rounded-xl py-6">0889-8349-4764</p>    
+      </div>
+      <div class=""> <!-- Tambah background dan shadow -->
+        <img src="/contact-1.png" alt="" class="w-[400px] h-auto">
+        <p class="text-center bg-[#ED1D25] text-white rounded-xl py-6">0889-8349-4764</p>
+      </div>
+      <div class=""> <!-- Tambah background dan shadow -->
+        <img src="/contact-1.png" alt="" class="w-[400px] h-auto">
+        <p class="text-center bg-[#ED1D25] text-white rounded-xl py-6">glatinopremium@gmail.com</p>
+      </div>      
+    </div>    
+    <hr class="border-gray-300 mt-12"/> 
+    
+    <h1 class="text-2xl text-center font-semibold text-gray-600 py-10">Get in Touch With Glatino Premium</h1>
+    <EmailComponent />
   </div>
 
   <FooterComponent />
 </template>
 
 <script lang="ts" setup>
+import EmailComponent from '~/components/email.vue'
 import FooterComponent from '~/components/footer.vue'
 </script>
 
