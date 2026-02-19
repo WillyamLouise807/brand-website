@@ -2,7 +2,7 @@
   <footer class="bg-red-950 text-white font-gotham">
     <!-- Main Footer Content -->
     <div class="max-w-screen-2xl mx-auto w-full px-6 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-16">
         
         <!-- Logo and Stay in the Know Section -->
         <div class="col-span-1">
@@ -11,9 +11,8 @@
             <img 
               src="/logo.png" 
               alt="Glatino Premium" 
-              class="h-16 mb-4"
-            >
-            <p class="text-red-500 text-sm font-medium">PROFESSIONAL QUALITY</p>
+              class="h-auto w-full mb-4"
+            >          
           </div>
           
           <!-- Stay in the Know -->
@@ -56,7 +55,7 @@
         </div>
 
         <!-- Product Section -->
-        <div class="col-span-1">
+        <div class="col-span-1 ">
           <h3 class="text-white text-lg font-semibold mb-6">PRODUCT</h3>
           <ul class="space-y-3">
             <li>
