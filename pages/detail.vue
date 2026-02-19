@@ -167,7 +167,81 @@
 
       <hr class="border-gray-300"/>
 
-      <h1 class="text-4xl text-center font-semibold text-gray-500 py-10">OUR GLATINO PREMIUM PRODUCTS YOU MAY WANT TO EXPLORE</h1>
+      <section>
+        <h1 class="text-4xl text-center font-semibold text-gray-500 py-36">OUR GLATINO PREMIUM PRODUCTS YOU MAY WANT TO EXPLORE</h1>
+
+        <div class="grid grid-cols-4 gap-8 justify-center items-center">
+          <div class="relative w-full h-[400px] rounded-3xl overflow-hidden group cursor-pointer border-4 border-red-100 shadow-lg shadow-red-300/50 flex flex-col">
+            <!-- Gambar area - flex-1 mengisi sisa ruang -->
+            <div class="flex-1 relative">
+              <img 
+                src="/produk/201.png" 
+                alt="Handle Roses"
+                class="absolute inset-0 w-full h-full object-cover"
+              >
+            </div>
+            
+            <!-- Informasi produk di bagian bawah - tinggi otomatis sesuai content -->
+            <div class="bg-gray-100 rounded-t-3xl">
+              <p class="text-center py-6 px-4 m-0 uppercase font-bold text-xl">
+                Handle Roses 201 HR-201 $DATABASE
+              </p>
+            </div>
+          </div>
+          <div class="relative w-full h-[400px] rounded-3xl overflow-hidden group cursor-pointer border-4 border-red-100 shadow-lg shadow-red-300/50 flex flex-col">
+            <!-- Gambar area - flex-1 mengisi sisa ruang -->
+            <div class="flex-1 relative">
+              <img 
+                src="/produk/201.png" 
+                alt="Handle Roses"
+                class="absolute inset-0 w-full h-full object-cover"
+              >
+            </div>
+            
+            <!-- Informasi produk di bagian bawah - tinggi otomatis sesuai content -->
+            <div class="bg-gray-100 rounded-t-3xl">
+              <p class="text-center py-6 px-4 m-0 uppercase font-bold text-xl">
+                Handle Roses 201 HR-201 $DATABASE
+              </p>
+            </div>
+          </div>
+          <div class="relative w-full h-[400px] rounded-3xl overflow-hidden group cursor-pointer border-4 border-red-100 shadow-lg shadow-red-300/50 flex flex-col">
+            <!-- Gambar area - flex-1 mengisi sisa ruang -->
+            <div class="flex-1 relative">
+              <img 
+                src="/produk/201.png" 
+                alt="Handle Roses"
+                class="absolute inset-0 w-full h-full object-cover"
+              >
+            </div>
+            
+            <!-- Informasi produk di bagian bawah - tinggi otomatis sesuai content -->
+            <div class="bg-gray-100 rounded-t-3xl">
+              <p class="text-center py-6 px-4 m-0 uppercase font-bold text-xl">
+                Handle Roses 201 HR-201 $DATABASE
+              </p>
+            </div>
+          </div>
+          <div class="relative w-full h-[400px] rounded-3xl overflow-hidden group cursor-pointer border-4 border-red-100 shadow-lg shadow-red-300/50 flex flex-col">
+            <!-- Gambar area - flex-1 mengisi sisa ruang -->
+            <div class="flex-1 relative">
+              <img 
+                src="/produk/201.png" 
+                alt="Handle Roses"
+                class="absolute inset-0 w-full h-full object-cover"
+              >
+            </div>
+            
+            <!-- Informasi produk di bagian bawah - tinggi otomatis sesuai content -->
+            <div class="bg-gray-100 rounded-t-3xl">
+              <p class="text-center py-6 px-4 m-0 uppercase font-bold text-xl">
+                Handle Roses 201 HR-201 $DATABASE
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="py-16"></div>
     </div>
   </div>
   
