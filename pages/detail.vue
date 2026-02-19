@@ -1,11 +1,13 @@
 <template>
   <div class="font-gotham">
     <!-- Background Image Section -->
-    <div class="relative w-full h-[340px] bg-cover bg-center bg-no-repeat"
-      style="background-image: url('/detail-catalog.png')">
+    <div class="relative w-full h-[340px] bg-[#ED1D25] overflow-hidden">
 
-      <!-- Overlay merah -->
-      <div class="absolute inset-0 bg-[#ED1D25]/65"></div>
+      <!-- Image layer -->
+      <div 
+        class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style="background-image: url('/detail-catalog.png')"
+      ></div>
 
       <!-- Content -->
       <div class="relative z-10 h-full flex items-center justify-center">
@@ -13,6 +15,7 @@
           $CATALOG
         </h1>
       </div>
+
     </div>
 
     <div class="container mx-auto py-16">
