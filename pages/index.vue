@@ -178,15 +178,16 @@
       </div>
     </div>
 
-    <!-- Section e-catalog Command -->
-    <section
-      class="relative w-full h-[1063px] bg-center bg-cover flex items-center justify-center"
-      style="background-image: url('/e-catalog-background.png')"
-    >
-      <!-- overlay gelap Command -->
-      <div class="absolute inset-0 bg-red-950 bg-opacity-50"></div>
+    <!-- Section e-catalog Command -->    
+    <section class="relative w-full h-[1063px] bg-[#4A1314] overflow-hidden flex items-center justify-center">
 
-      <!-- content Command-->
+      <!-- Image layer -->
+      <div 
+        class="absolute inset-0 bg-center bg-cover bg-no-repeat"
+        style="background-image: url('/e-catalog-background.png')"
+      ></div>
+
+      <!-- Content -->
       <div class="relative z-10 text-center px-6">
         <h1 class="text-white text-3xl md:text-5xl uppercase leading-tight mb-16 font-gotham">
           Where Premium Remarkable Quality <br />
@@ -195,7 +196,7 @@
 
         <button
           class="bg-red-600 text-white text-2xl px-32 py-6 rounded-full font-medium
-                hover:text-white transition-colors duration-300"
+                hover:bg-red-700 transition duration-300"
         >
           E-Catalog
         </button>
