@@ -5,12 +5,15 @@
   >
     <div class="container mx-auto">
       <div class="flex items-center p-4 h-20">
-        <!-- Logo -->
-        <div class="w-32">
-          <NuxtLink to="/">
-            <img src="/logo.png" class="h-8 w-auto" />
-          </NuxtLink>
-        </div>
+<!-- Logo -->
+<div class="flex items-center">
+  <NuxtLink to="/">
+    <img
+      src="/logo.png"
+      class="h-12 w-auto"
+    />
+  </NuxtLink>
+</div>
 
         <!-- Menu -->
         <div class="flex-1">
