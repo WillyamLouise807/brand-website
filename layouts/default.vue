@@ -16,7 +16,12 @@
         <div class="flex-1">
           <div class="flex justify-center gap-8 font-semibold">
             <NuxtLink to="/" class="nav-link" exact>Home</NuxtLink>
-            <NuxtLink to="/product" class="nav-link">Product</NuxtLink>
+            <NuxtLink
+              to="/product"
+              :class="['nav-link', { 'active-product': isProductActive }]"
+            >
+              Product
+            </NuxtLink>
             <NuxtLink to="/e-catalog" class="nav-link">E-Catalogue</NuxtLink>
             <NuxtLink to="/contact-us" class="nav-link">Contact Us</NuxtLink>
           </div>
@@ -61,6 +66,13 @@
 </template>
 
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+const isProductActive = computed(() => {
+  return route.path.startsWith('/product') || route.path.startsWith('/detail')
+})
 </script>
 
 <style scoped>
@@ -74,6 +86,21 @@
 }
 
 .nav-link.router-link-active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #ef4444;
+  border-radius: 9999px;
+}
+
+.active-product {
+  color: #ef4444;
+}
+
+.active-product::after {
   content: '';
   position: absolute;
   left: 0;
