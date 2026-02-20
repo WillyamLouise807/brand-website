@@ -167,6 +167,92 @@
 
       <hr class="border-gray-300"/>
 
+      <div class="py-20 px-4">
+        <!-- Header Section -->
+        <div class="text-center mb-12">    
+          <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Choose Your Marketplace</h1>
+          <p class="text-gray-500 max-w-md mx-auto">Find our products on your favorite marketplace</p>
+        </div>
+        
+        <!-- Marketplace Cards -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-6 max-w-2xl mx-auto">
+          
+          <!-- Shopee Card -->
+          <a 
+            href="https://shopee.co.id/yourstore" 
+            target="_blank"
+            class="group relative w-full sm:w-64 p-8 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:shadow-[0_16px_48px_rgba(238,77,45,0.15)] hover:border-orange-200 transition-all duration-500 hover:-translate-y-2 cursor-pointer"
+          > 
+            <!-- Glow Effect -->
+            <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-orange-500/10 to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            
+            <div class="relative flex flex-col items-center">
+              <div class="w-20 h-20 mb-5 p-4 rounded-2xl bg-gradient-to-br from-orange-50 to-red-50 group-hover:scale-110 transition-transform duration-500">
+                <img src="/shopee-icon.png" alt="Shopee" class="w-full h-full object-contain">
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-2">Shopee</h3>
+              <p class="text-sm text-gray-500 mb-4">Official Store</p>
+              <span class="inline-flex items-center gap-2 text-sm font-medium text-orange-600 group-hover:gap-3 transition-all duration-300">
+                Kunjungi Toko
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+
+          <!-- Divider -->
+          <div class="hidden sm:flex flex-col items-center gap-3 text-gray-300">
+            <div class="w-px h-8 bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
+            <span class="text-xs font-medium text-gray-400">or</span>
+            <div class="w-px h-8 bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
+          </div>
+
+          <!-- Tokopedia Card -->
+          <a 
+            href="https://tokopedia.com/yourstore" 
+            target="_blank"
+            class="group relative w-full sm:w-64 p-8 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:shadow-[0_16px_48px_rgba(3,168,87,0.15)] hover:border-green-200 transition-all duration-500 hover:-translate-y-2 cursor-pointer"
+          >
+            <!-- Glow Effect -->
+            <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-green-500/10 to-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            
+            <div class="relative flex flex-col items-center">
+              <div class="w-20 h-20 mb-5 p-4 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 group-hover:scale-110 transition-transform duration-500">
+                <img src="/tokopedia-icon.png" alt="Tokopedia" class="w-full h-full object-contain">
+              </div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-2">Tokopedia</h3>
+              <p class="text-sm text-gray-500 mb-4">Official Store</p>
+              <span class="inline-flex items-center gap-2 text-sm font-medium text-green-600 group-hover:gap-3 transition-all duration-300">
+                Kunjungi Toko
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- Trust Badge -->
+        <div class="flex items-center justify-center gap-6 mt-12 text-gray-400">
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+            <span class="text-sm">100% Original</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
+            </svg>
+            <span class="text-sm">Fast Shipping</span>
+          </div>
+        </div>
+      </div>
+
+      <hr class="border-gray-300"/>
+
       <section>
         <h1 class="text-4xl text-center font-semibold text-gray-500 py-36">OUR GLATINO PREMIUM PRODUCTS YOU MAY WANT TO EXPLORE</h1>
 
