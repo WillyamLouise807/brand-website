@@ -100,81 +100,93 @@
       </div>
     </div>
 
-    <!-- Additional spacing for next sections Command-->
+    <!-- ============================================ -->
+    <!-- CATEGORIES SECTION - INTEGRATED WITH API -->
+    <!-- ============================================ -->
     <div class="container mx-auto py-16">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 justify-center items-center">
-        <!-- Placeholder for additional content Command-->
-        <div class="group flex flex-col bg-gray-100 rounded-3xl 
-                    border-2 border-transparent
-                    transition-all duration-300 ease-out
-                    hover:scale-105 hover:border-red-500">
-          <img src="/handle-roses.png" alt="">
-          <div class="pt-2">
-            <p class="text-center font-semibold text-2xl">HANDLE ROSES</p>
-            <p class="text-center text-sm">View all Handle Roses Product</p>
+      <!-- Loading State -->
+      <div v-if="loadingCategories" class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div 
+          v-for="i in 4" 
+          :key="i" 
+          class="bg-gray-200 rounded-3xl animate-pulse h-96"
+        >
+          <div class="h-64 bg-gray-300 rounded-t-3xl"></div>
+          <div class="p-6 space-y-3">
+            <div class="h-6 bg-gray-300 rounded w-3/4 mx-auto"></div>
+            <div class="h-4 bg-gray-300 rounded w-1/2 mx-auto"></div>
           </div>
+        </div>
+      </div>
+
+      <!-- Error State -->
+      <div v-else-if="errorCategories" class="text-center py-16">
+        <div class="mb-4">
+          <svg class="w-16 h-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p class="text-red-500 text-lg mb-2">Failed to load categories</p>
+          <p class="text-gray-500 text-sm">{{ errorCategories }}</p>
+        </div>
+        <button 
+          @click="fetchCategories"
+          class="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 transition-colors duration-300"
+        >
+          Retry
+        </button>
+      </div>
+
+      <!-- Categories Grid -->
+      <div v-else-if="categories.length > 0" class="grid grid-cols-1 md:grid-cols-4 gap-8 justify-center items-center">
+        <div 
+          v-for="category in categories" 
+          :key="category.id"
+          class="group flex flex-col bg-gray-100 rounded-3xl 
+                border-2 border-transparent
+                transition-all duration-300 ease-out
+                hover:scale-105 hover:border-red-500 cursor-pointer"
+        >
+          <!-- Category Image -->
+          <div class="w-full h-64 overflow-hidden rounded-t-3xl bg-gray-200">
+            <img 
+              :src="category.image_url || '/placeholder.png'" 
+              :alt="category.category_name"
+              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+              @error="handleImageError"
+            />
+          </div>
+          
+          <!-- Category Info -->
+          <div class="pt-2 px-4">
+            <p class="text-center font-semibold text-2xl">
+              {{ category.category_name.toUpperCase() }}
+            </p>
+            <p class="text-center text-sm">
+              View all {{ category.category_name }} Product
+            </p>
+          </div>
+          
+          <!-- Button -->
           <div class="flex justify-center items-center py-8">
-            <button class="bg-red-500 text-white px-12 py-2 rounded-full 
-                          text-xs transition-colors duration-300
-                          group-hover:bg-red-600">
+            <nuxt-link 
+              :to="`/products?category=${category.id}`"
+              class="bg-red-500 text-white px-12 py-2 rounded-full 
+                    text-xs transition-colors duration-300
+                    group-hover:bg-red-600"
+            >
               Product List
-            </button>
+            </nuxt-link>
           </div>
-        </div>                
-        <!-- Placeholder for additional content Command-->
-        <div class="group flex flex-col bg-gray-100 rounded-3xl 
-                    border-2 border-transparent
-                    transition-all duration-300 ease-out
-                    hover:scale-105 hover:border-red-500">
-          <img src="/hinge.png" alt="">
-          <div class="py-2">
-            <p class="text-center font-semibold text-2xl">HINGES</p>
-            <p class="text-center text-sm">View all Hinges Product</p>
-          </div>
-          <div class="flex justify-center items-center py-8">
-            <button class="bg-red-500 text-white px-12 py-2 rounded-full 
-                          text-xs transition-colors duration-300
-                          group-hover:bg-red-600">
-              Product List
-            </button>
-          </div>
-        </div>                
-        <!-- Placeholder for additional content Command-->
-        <div class="group flex flex-col bg-gray-100 rounded-3xl 
-                    border-2 border-transparent
-                    transition-all duration-300 ease-out
-                    hover:scale-105 hover:border-red-500">
-          <img src="/pull-handle.png" alt="">
-          <div class="py-2">
-            <p class="text-center font-semibold text-2xl">PULL HANDLES</p>
-            <p class="text-center text-sm">View all Pull Handles Product</p>
-          </div>
-          <div class="flex justify-center items-center py-8">
-            <button class="bg-red-500 text-white px-12 py-2 rounded-full 
-                          text-xs transition-colors duration-300
-                          group-hover:bg-red-600">
-              Product List
-            </button>
-          </div>
-        </div>                
-        <!-- Placeholder for additional content Command-->
-        <div class="group flex flex-col bg-gray-100 rounded-3xl 
-                    border-2 border-transparent
-                    transition-all duration-300 ease-out
-                    hover:scale-105 hover:border-red-500">
-          <img src="/aluminium-lock.png" alt="">
-          <div class="py-2">
-            <p class="text-center font-semibold text-2xl">ALUMINIUM LOCKS</p>
-            <p class="text-center text-sm">View all Aluminium Locks Product</p>
-          </div>
-          <div class="flex justify-center items-center py-8">
-            <button class="bg-red-500 text-white px-12 py-2 rounded-full 
-                          text-xs transition-colors duration-300
-                          group-hover:bg-red-600">
-              Product List
-            </button>
-          </div>
-        </div>                
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div v-else class="text-center py-16">
+        <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+        </svg>
+        <p class="text-gray-500 text-lg">No categories available</p>
+        <p class="text-gray-400 text-sm mt-2">Please check back later</p>
       </div>
     </div>
 
@@ -285,10 +297,30 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
+import axios from 'axios'
 import FooterComponent from '~/components/footer.vue'
 
-// Reactive variables
+// ============================================
+// TYPESCRIPT INTERFACES
+// ============================================
+interface Category {
+  id: number
+  category_name: string
+  image_url: string | null
+  products_count?: number
+  created_at?: string
+  updated_at?: string
+}
+
+interface Review {
+  name: string
+  text: string
+}
+
+// ============================================
+// HERO SLIDER
+// ============================================
 const currentSlide = ref(0)
 const totalSlides = ref(3)
 const progressWidth = ref(0)
@@ -346,15 +378,6 @@ const stopAutoPlay = () => {
   }
 }
 
-// Lifecycle hooks
-onMounted(() => {
-  startAutoPlay()
-})
-
-onUnmounted(() => {
-  stopAutoPlay()
-})
-
 // Pause auto-play on hover
 const handleMouseEnter = () => {
   stopAutoPlay()
@@ -365,8 +388,55 @@ const handleMouseLeave = () => {
   startAutoPlay()
 }
 
-// Review data
-const reviews = ref([
+// ============================================
+// CATEGORIES API
+// ============================================
+const categories = ref<Category[]>([])  // ← TAMBAHKAN TYPE
+const loadingCategories = ref(true)
+const errorCategories = ref<string | null>(null)  // ← TAMBAHKAN TYPE
+
+const fetchCategories = async () => {
+  try {
+    loadingCategories.value = true
+    errorCategories.value = null
+    
+    const response = await axios.get('https://backend-brand-website.vercel.app/api/api/categories/')
+    
+    let data = response.data
+
+    // Handle wrapped responses
+    if (Array.isArray(data)) {
+      categories.value = data
+    } else if (data && Array.isArray(data.data)) {
+      categories.value = data.data
+    } else if (data && Array.isArray(data.results)) {
+      categories.value = data.results
+    } else {
+      // Log the actual response so you can see the real shape
+      console.log('Unexpected response shape:', data)
+      throw new Error('Invalid response format')
+    }
+    
+    console.log('✅ Categories loaded:', categories.value)
+    
+  } catch (error: any) {
+    console.error('❌ Error fetching categories:', error)
+    errorCategories.value = error.message || 'Failed to load categories'
+  } finally {
+    loadingCategories.value = false
+  }
+}
+
+// Handle image error (fallback to placeholder)
+const handleImageError = (event: Event) => {
+  const target = event.target as HTMLImageElement
+  target.src = '/placeholder.png'
+}
+
+// ============================================
+// REVIEWS CAROUSEL
+// ============================================
+const reviews = ref<Review[]>([  // ← TAMBAHKAN TYPE
   {
     name: "Z*****A",
     text: "Pesen warna coklat tapi kebetulan barang kosong jadi rekomendasi warna lain yang tersedia bagus dan elegant super simple 👍🏻 best di toko resmi no kw produknya"
@@ -441,6 +511,18 @@ const previousReview = () => {
     }, 500) // Match transition duration
   }
 }
+
+// ============================================
+// LIFECYCLE HOOKS
+// ============================================
+onMounted(() => {
+  startAutoPlay()
+  fetchCategories() // Load categories from API
+})
+
+onUnmounted(() => {
+  stopAutoPlay()
+})
 </script>
 
 <style scoped>
@@ -476,5 +558,19 @@ button:hover {
 /* Custom drop shadow for products */
 .filter.drop-shadow-lg {
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 </style>
