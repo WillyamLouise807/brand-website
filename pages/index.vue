@@ -190,7 +190,7 @@
       <!-- Content -->
       <div class="relative z-10 text-center px-6">
         <h1 class="text-white text-3xl md:text-5xl uppercase leading-tight mb-16 font-gotham">
-          Where Premium Remarkable Quality <br />
+          Where Premium Remarkable Quality <br /> <br>
           meets modern lifestyle
         </h1>
 
