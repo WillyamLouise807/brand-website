@@ -32,7 +32,7 @@
       <section>
         <!-- Red Background -->
         <div class="bg-red-600 rounded-3xl w-full py-12 text-center relative">
-          <h1 class="text-white text-4xl mb-12">
+          <h1 class="text-white text-4xl font-bold mb-12">
             FIND OUR PRODUCTS
           </h1>
         </div>
@@ -92,7 +92,7 @@
       </section>
 
       <!-- Filter tidak aktif page ini muncul -->
-      <h1 class="font-semibold text-3xl text-center py-12">Categories (Filter tidak Aktif)</h1>
+      <h1 class="font-bold uppercase text-3xl text-center py-12">Categories (Filter tidak Aktif)</h1>
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 justify-center items-center">
         <div>
           <!-- Ganti h-80 dengan tinggi yang diinginkan -->
