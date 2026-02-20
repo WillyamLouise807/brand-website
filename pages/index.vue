@@ -204,7 +204,7 @@
     </section>
     
     <!-- Reviews Section Command-->
-    <div class="container mx-auto py-16 px-6">
+    <div class="container mx-auto py-32 px-6">
       <!-- Header -->
       <div class="flex justify-between items-center mb-10">
         <h2 class="text-4xl lg:text-5xl font-semibold text-black">
@@ -369,15 +369,15 @@ const handleMouseLeave = () => {
 const reviews = ref([
   {
     name: "Z*****A",
-    text: "Pesen warna coklat tapi kebetulan barang kosong jadi rekomendasi warna lain yang tersedia bagus dan elegant super simple & best di toko resmi no kw produknya"
+    text: "Pesen warna coklat tapi kebetulan barang kosong jadi rekomendasi warna lain yang tersedia bagus dan elegant super simple 👍🏻 best di toko resmi no kw produknya"
   },
   {
-    name: "D*****D",
-    text: "Seller fast respon dan pengiriman cepat. untuk bahannya sesuai dengan harga baud nya kalyak sehinga lebih enak kuat. Semoga awet. baek cepat rusak Next order lagi."
+    name: "D*****A",
+    text: "Seller fast respon dan pengiriman cepat. untuk bahannya sesuai dengan harga baud nya kalyak sehinga lebih enak kuat. Semoga awet, tidak cepat rusak. Next order lagi."
   },
   {
     name: "Nuryanto.",
-    text: "Kualitas nya bagus kokoh, mmpg perlu yang bAGus pengalaman beli sebelumnya kureng puas Pengiriman so so lah krn dr Jakarta ke jkt"
+    text: "Kualitas nya bagus kokoh, mmg perlu yang bAgus krn pengalaman beli yang murah kurang puas Pengiriman so so lah krn dr surabaya ke jkt"
   },
   {
     name: "M***H",
