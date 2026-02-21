@@ -100,81 +100,69 @@
       </div>
     </div>
 
-    <!-- Additional spacing for next sections Command-->
+    <!-- ============================================ -->
+    <!-- CATEGORIES SECTION - FROM DATABASE -->
+    <!-- ============================================ -->
     <div class="container mx-auto py-16">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 justify-center items-center">
-        <!-- Placeholder for additional content Command-->
-        <div class="group flex flex-col bg-gray-100 rounded-3xl 
-                    border-2 border-transparent
-                    transition-all duration-300 ease-out
-                    hover:scale-105 hover:border-red-500">
-          <img src="/handle-roses.png" alt="">
-          <div class="pt-2">
-            <p class="text-center font-semibold text-2xl">HANDLE ROSES</p>
-            <p class="text-center text-sm">View all Handle Roses Product</p>
+      <!-- Loading State -->
+      <div v-if="loadingCategories" class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div 
+          v-for="i in 4" 
+          :key="i" 
+          class="bg-gray-200 rounded-3xl animate-pulse h-96"
+        >
+          <div class="h-64 bg-gray-300 rounded-t-3xl"></div>
+          <div class="p-6 space-y-3">
+            <div class="h-6 bg-gray-300 rounded w-3/4 mx-auto"></div>
+            <div class="h-4 bg-gray-300 rounded w-1/2 mx-auto"></div>
           </div>
-          <div class="flex justify-center items-center py-8">
-            <button class="bg-red-500 text-white px-12 py-2 rounded-full 
-                          text-xs transition-colors duration-300
-                          group-hover:bg-red-600">
+        </div>
+      </div>
+
+      <!-- Categories Grid - LAYOUT PERSIS SEPERTI KODE PERTAMA -->
+      <div v-else class="grid grid-cols-1 md:grid-cols-4 gap-8 justify-center items-center">
+        <div 
+          v-for="category in categories" 
+          :key="category.id"
+          class="group flex flex-col bg-gray-100 rounded-3xl 
+                  border-2 border-transparent
+                  transition-all duration-300 ease-out
+                  hover:scale-105 hover:border-red-500"
+        >
+          <!-- Image langsung tanpa wrapper - PERSIS seperti kode pertama -->
+          <img class="h-[400px] rounded-3xl "
+            :src="category.image_url || '/placeholder.png'" 
+            :alt="category.category_name"
+            @error="handleImageError"
+          >
+          
+          <!-- Category Info -->
+          <div class="py-6">
+            <p class="text-center font-semibold text-2xl">{{ category.category_name.toUpperCase() }}</p>
+            <p class="text-center text-sm">View all {{ category.category_name }} Product</p>
+          </div>
+          
+          <!-- Button -->
+          <div class="flex justify-center items-center py-4 mb-8">
+            <nuxt-link 
+              :to="`/products?category=${category.id}`"
+              class="bg-red-500 text-white px-12 py-2 rounded-full 
+                    text-xs transition-colors duration-300
+                    group-hover:bg-red-600"
+            >
               Product List
-            </button>
+            </nuxt-link>
           </div>
-        </div>                
-        <!-- Placeholder for additional content Command-->
-        <div class="group flex flex-col bg-gray-100 rounded-3xl 
-                    border-2 border-transparent
-                    transition-all duration-300 ease-out
-                    hover:scale-105 hover:border-red-500">
-          <img src="/hinge.png" alt="">
-          <div class="py-2">
-            <p class="text-center font-semibold text-2xl">HINGES</p>
-            <p class="text-center text-sm">View all Hinges Product</p>
-          </div>
-          <div class="flex justify-center items-center py-8">
-            <button class="bg-red-500 text-white px-12 py-2 rounded-full 
-                          text-xs transition-colors duration-300
-                          group-hover:bg-red-600">
-              Product List
-            </button>
-          </div>
-        </div>                
-        <!-- Placeholder for additional content Command-->
-        <div class="group flex flex-col bg-gray-100 rounded-3xl 
-                    border-2 border-transparent
-                    transition-all duration-300 ease-out
-                    hover:scale-105 hover:border-red-500">
-          <img src="/pull-handle.png" alt="">
-          <div class="py-2">
-            <p class="text-center font-semibold text-2xl">PULL HANDLES</p>
-            <p class="text-center text-sm">View all Pull Handles Product</p>
-          </div>
-          <div class="flex justify-center items-center py-8">
-            <button class="bg-red-500 text-white px-12 py-2 rounded-full 
-                          text-xs transition-colors duration-300
-                          group-hover:bg-red-600">
-              Product List
-            </button>
-          </div>
-        </div>                
-        <!-- Placeholder for additional content Command-->
-        <div class="group flex flex-col bg-gray-100 rounded-3xl 
-                    border-2 border-transparent
-                    transition-all duration-300 ease-out
-                    hover:scale-105 hover:border-red-500">
-          <img src="/aluminium-lock.png" alt="">
-          <div class="py-2">
-            <p class="text-center font-semibold text-2xl">ALUMINIUM LOCKS</p>
-            <p class="text-center text-sm">View all Aluminium Locks Product</p>
-          </div>
-          <div class="flex justify-center items-center py-8">
-            <button class="bg-red-500 text-white px-12 py-2 rounded-full 
-                          text-xs transition-colors duration-300
-                          group-hover:bg-red-600">
-              Product List
-            </button>
-          </div>
-        </div>                
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div v-if="!loadingCategories && categories.length === 0" class="text-center py-16">
+        <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+        </svg>
+        <p class="text-gray-500 text-lg">No categories available</p>
+        <p class="text-gray-400 text-sm mt-2">Please check back later</p>
       </div>
     </div>
 
@@ -251,7 +239,6 @@
             :class="[
               'min-w-[calc(33.333%-1rem)] bg-white rounded-2xl p-8 border border-gray-200',
               'transition-all duration-300',
-              // Blur effect - show 3 cards clearly, blur the rest Command
               isCardVisible(index)
                 ? 'opacity-100 blur-0 scale-100 hover:shadow-2xl hover:-translate-y-2'
                 : 'opacity-40 blur-[2px] scale-95'
@@ -285,21 +272,36 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
+import axios from 'axios'
 import FooterComponent from '~/components/footer.vue'
 
-// Reactive variables
+// ============================================
+// TYPESCRIPT INTERFACES
+// ============================================
+interface Category {
+  id: number
+  category_name: string
+  image_url: string | null
+}
+
+interface Review {
+  name: string
+  text: string
+}
+
+// ============================================
+// HERO SLIDER
+// ============================================
 const currentSlide = ref(0)
 const totalSlides = ref(3)
 const progressWidth = ref(0)
-const autoPlayInterval = ref<number | null>(null)
-const progressInterval = ref<number | null>(null)
+const autoPlayInterval = ref<ReturnType<typeof setInterval> | null>(null)
+const progressInterval = ref<ReturnType<typeof setInterval> | null>(null)
 
-// Auto-play configuration
-const autoPlayDuration = 5000 // 5 seconds per slide
-const progressUpdateInterval = 100 // Update progress every 100ms
+const autoPlayDuration = 5000
+const progressUpdateInterval = 100
 
-// Functions
 const nextSlide = () => {
   currentSlide.value = (currentSlide.value + 1) % totalSlides.value
   resetProgress()
@@ -324,12 +326,10 @@ const updateProgress = () => {
 }
 
 const startAutoPlay = () => {
-  // Start auto-play
   autoPlayInterval.value = setInterval(() => {
     nextSlide()
   }, autoPlayDuration)
   
-  // Start progress indicator
   progressInterval.value = setInterval(() => {
     updateProgress()
   }, progressUpdateInterval)
@@ -346,16 +346,6 @@ const stopAutoPlay = () => {
   }
 }
 
-// Lifecycle hooks
-onMounted(() => {
-  startAutoPlay()
-})
-
-onUnmounted(() => {
-  stopAutoPlay()
-})
-
-// Pause auto-play on hover
 const handleMouseEnter = () => {
   stopAutoPlay()
 }
@@ -365,8 +355,49 @@ const handleMouseLeave = () => {
   startAutoPlay()
 }
 
-// Review data
-const reviews = ref([
+// ============================================
+// CATEGORIES API
+// ============================================
+const categories = ref<Category[]>([])
+const loadingCategories = ref(true)
+
+const fetchCategories = async () => {
+  try {
+    loadingCategories.value = true
+    
+    const response = await axios.get('https://backend-brand-website.vercel.app/api/api/categories/')
+    
+    let data = response.data
+
+    if (Array.isArray(data)) {
+      categories.value = data
+    } else if (data && Array.isArray(data.data)) {
+      categories.value = data.data
+    } else if (data && Array.isArray(data.results)) {
+      categories.value = data.results
+    } else {
+      console.log('Unexpected response shape:', data)
+    }
+    
+    console.log('✅ Categories loaded:', categories.value)
+    
+  } catch (error: any) {
+    console.error('❌ Error fetching categories:', error)
+  } finally {
+    loadingCategories.value = false
+  }
+}
+
+// Handle image error (fallback to placeholder)
+const handleImageError = (event: Event) => {
+  const target = event.target as HTMLImageElement
+  target.src = '/placeholder.png'
+}
+
+// ============================================
+// REVIEWS CAROUSEL
+// ============================================
+const reviews = ref<Review[]>([
   {
     name: "Z*****A",
     text: "Pesen warna coklat tapi kebetulan barang kosong jadi rekomendasi warna lain yang tersedia bagus dan elegant super simple 👍🏻 best di toko resmi no kw produknya"
@@ -393,58 +424,61 @@ const reviews = ref([
   }
 ])
 
-// Infinite carousel setup
-const currentReviewIndex = ref(3) // Start from cloned items
+const currentReviewIndex = ref(3)
 const isTransitioning = ref(true)
 const carouselTrack = ref<HTMLElement | null>(null)
 
-// Create infinite loop by duplicating items at start and end
 const infiniteReviews = computed(() => {
   const items = reviews.value
-  // Clone last 3 items to start, and first 3 items to end
   return [
-    ...items.slice(-3),  // Last 3 items
-    ...items,            // Original items
-    ...items.slice(0, 3) // First 3 items
+    ...items.slice(-3),
+    ...items,
+    ...items.slice(0, 3)
   ]
 })
 
-// Check if card should be visible (not blurred)
 const isCardVisible = (index: number) => {
   return index >= currentReviewIndex.value && index < currentReviewIndex.value + 3
 }
 
-// Next review
 const nextReview = () => {
   isTransitioning.value = true
   currentReviewIndex.value++
   
-  // Check if we've reached the cloned section at the end
   if (currentReviewIndex.value === reviews.value.length + 3) {
     setTimeout(() => {
       isTransitioning.value = false
-      currentReviewIndex.value = 3 // Reset to real first item
-    }, 500) // Match transition duration
+      currentReviewIndex.value = 3
+    }, 500)
   }
 }
 
-// Previous review
 const previousReview = () => {
   isTransitioning.value = true
   currentReviewIndex.value--
   
-  // Check if we've reached the cloned section at the start
   if (currentReviewIndex.value === 2) {
     setTimeout(() => {
       isTransitioning.value = false
-      currentReviewIndex.value = reviews.value.length + 2 // Reset to real last item
-    }, 500) // Match transition duration
+      currentReviewIndex.value = reviews.value.length + 2
+    }, 500)
   }
 }
+
+// ============================================
+// LIFECYCLE HOOKS
+// ============================================
+onMounted(() => {
+  startAutoPlay()
+  fetchCategories()
+})
+
+onUnmounted(() => {
+  stopAutoPlay()
+})
 </script>
 
 <style scoped>
-/* Smooth transitions for better UX */
 img {
   object-position: center;
   transition: transform 0.3s ease;
@@ -454,12 +488,10 @@ img {
   -ms-user-select: none;
 }
 
-/* Hover effects for dots */
 button:hover {
   transform: scale(1.1);
 }
 
-/* Prevent text selection */
 .font-poppins {
   font-family: 'Poppins', sans-serif;
 }
@@ -468,13 +500,24 @@ button:hover {
   font-family: 'Gotham', sans-serif;
 }
 
-/* Additional hover effects */
 .group:hover .group-hover\:scale-110 {
   transform: scale(1.1);
 }
 
-/* Custom drop shadow for products */
 .filter.drop-shadow-lg {
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 </style>

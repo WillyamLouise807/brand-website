@@ -27,5 +27,12 @@ export default defineNuxtConfig({
   // ✅ Tambahkan ini supaya bisa jadi static site
   nitro: {
     preset: 'static'
+  },
+
+  runtimeConfig: {
+    public: {
+      apiBase: 'https://backend-brand-website.vercel.app/api/api'
+    }
   }
+  
 })
