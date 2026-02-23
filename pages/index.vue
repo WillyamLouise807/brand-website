@@ -145,7 +145,7 @@
           <!-- Button -->
           <div class="flex justify-center items-center py-4 mb-8">
             <nuxt-link 
-              :to="`/products?category=${category.id}`"
+              :to="`/product?category=${category.id}`"
               class="bg-red-500 text-white px-12 py-2 rounded-full 
                     text-xs transition-colors duration-300
                     group-hover:bg-red-600"
