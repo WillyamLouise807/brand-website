@@ -12,10 +12,7 @@
               <nuxt-link to="/" class="text-sm text-black hover:text-gray-900">HOME</nuxt-link>
             </li>
             <li>
-              <div class="flex items-center">
-                <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                </svg>
+              <div class="flex items-center">               
                 <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4">
                   <path d="M16 3L8 21" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
@@ -50,7 +47,7 @@
               items-end
               gap-4
               rounded-3xl 
-              max-w-7xl
+              max-w-6xl
               mx-auto
               px-8 py-6">
           
@@ -59,7 +56,7 @@
             <p class="mb-2">Product Categories</p>
             <select 
               v-model="filters.category_id" 
-              @change="applyFilters"
+              @change="onFilterChange"
               class="w-full rounded-md px-3 py-2 text-sm text-black"
               :disabled="loadingCategories"
             >
@@ -74,31 +71,12 @@
             </select>
           </div>
 
-          <!-- Finishing Filter -->
-          <!-- <div class="text-white">
-            <p class="mb-2">Finishing</p>
-            <select 
-              v-model="filters.finishing" 
-              @change="applyFilters"
-              class="w-full rounded-md px-3 py-2 text-sm text-black"
-            >
-              <option value="">All Finishing</option>
-              <option 
-                v-for="finish in finishingOptions" 
-                :key="finish" 
-                :value="finish"
-              >
-                {{ finish }}
-              </option>
-            </select>
-          </div> -->
-
           <!-- Material Filter -->
           <div class="text-white">
             <p class="mb-2">Material</p>
             <select 
               v-model="filters.material_id" 
-              @change="applyFilters"
+              @change="onFilterChange"
               class="w-full rounded-md px-3 py-2 text-sm text-black"
               :disabled="loadingMaterials"
             >
@@ -160,7 +138,7 @@
       <!-- ============================================ -->
 
       <!-- CONDITION 1: Show Categories (Filter NOT Active) -->
-      <div v-if="!isFilterActive && !loadingProducts">
+      <div v-if="!isFilterActive">
         <h1 class="font-bold uppercase text-3xl text-center py-12">Categories</h1>
         
         <!-- Loading Categories -->
@@ -216,7 +194,7 @@
       </div>
 
       <!-- CONDITION 2: Show Products (Filter IS Active) -->
-      <div v-if="isFilterActive || loadingProducts">
+      <div v-if="isFilterActive">
         <!-- Products Count -->
         <div class="mb-8 mt-12 font-gotham">
           <nav class="flex" aria-label="Breadcrumb">
@@ -232,34 +210,39 @@
 
         <!-- Loading Products -->
         <div v-if="loadingProducts" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
-          <div v-for="i in 10" :key="i" class="h-[400px] bg-gray-200 rounded-3xl animate-pulse"></div>
+          <div v-for="i in 10" :key="i" class="h-[352px] bg-gray-200 rounded-3xl animate-pulse"></div>
         </div>
 
         <!-- Products Grid -->
-        <div v-else-if="products.length > 0" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 justify-center items-center">
-          <nuxt-link 
-            v-for="product in products" 
+        <div v-else-if="products.length > 0" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+          <div
+            v-for="product in products"
             :key="product.id"
-            :to="`/product/${product.id}`"
-            class="relative w-full h-[400px] rounded-3xl overflow-hidden group cursor-pointer border-4 border-red-100 shadow-lg shadow-red-300/50 flex flex-col hover:shadow-xl hover:shadow-red-400/60 transition-all duration-300"
+            @click="goToDetail(product)"
+            class="relative w-full h-auto rounded-3xl overflow-hidden group cursor-pointer border-4 border-red-100 shadow-lg shadow-red-300/50 flex flex-col bg-white hover:shadow-xl hover:shadow-red-400/60 transition-all duration-300"
           >
-            <!-- Product Image -->
-            <div class="flex-1 relative overflow-hidden">
-              <img 
-                :src="getProductImage(product)" 
-                :alt="product.product_name"
-                class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                @error="handleImageError"
-              >
+            <!-- Product Image with Fixed Height -->
+            <div class="h-64 relative p-4 bg-gray-50">
+              <div class="w-full h-full flex items-center justify-center">
+                <img
+                  :src="getProductImage(product)"
+                  :alt="product.product_name"
+                  class="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                  @error="handleImageError"
+                >
+              </div>
             </div>
-            
-            <!-- Product Info -->
-            <div class="bg-gray-100 rounded-t-3xl">
-              <p class="text-center py-6 px-4 m-0 uppercase font-semibold text-sm md:text-base lg:text-lg">
-                {{ product.product_name }} {{ product.product_code }}
+
+            <!-- Product Info - Fixed Height -->
+            <div class="bg-gray-100 rounded-t-3xl shrink-0 h-24 flex flex-col justify-center">
+              <p class="text-center px-3 m-0 uppercase font-semibold text-xs md:text-sm leading-tight line-clamp-2">
+                {{ product.product_name }}
+              </p>
+              <p class="text-center px-3 m-0 text-gray-500 font-normal text-xs mt-1">
+                {{ product.product_code }}
               </p>
             </div>
-          </nuxt-link>
+          </div>
         </div>
 
         <!-- No Products Found -->
@@ -286,7 +269,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, onMounted, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 import FooterComponent from '~/components/footer.vue'
 import BannerProduct from '~/components/banner-product.vue'
@@ -311,7 +294,6 @@ interface Product {
   product_code: string
   category_id: number
   material_id: number
-  finishing: string
   description: string
   images?: ProductImage[]
   image_url?: string
@@ -327,7 +309,6 @@ interface ProductImage {
 interface Filters {
   category_id: string | number
   material_id: string | number
-  finishing: string
 }
 
 // ============================================
@@ -339,6 +320,7 @@ const API_BASE = 'https://backend-brand-website.vercel.app/api/api'
 // STATE
 // ============================================
 const route = useRoute()
+const router = useRouter()
 
 // Data from API
 const categories = ref<Category[]>([])
@@ -353,36 +335,22 @@ const loadingProducts = ref(false)
 // Filter states
 const filters = ref<Filters>({
   category_id: '',
-  material_id: '',
-  finishing: ''
+  material_id: ''
 })
 
 const searchQuery = ref('')
 const selectedCategoryName = ref('')
 
-// Finishing options (bisa di-hardcode atau ambil dari API jika ada)
-const finishingOptions = ref([
-  'Chrome',
-  'Satin Nickel',
-  'Antique Brass',
-  'Black',
-  'Gold',
-  'Bronze',
-  'Stainless Steel'
-])
+// Track if user has interacted with filters
+const hasUserInteracted = ref(false)
 
 // ============================================
 // COMPUTED
 // ============================================
 
-// Check if any filter is active
+// Filter aktif HANYA jika user sudah berinteraksi
 const isFilterActive = computed(() => {
-  return (
-    filters.value.category_id !== '' ||
-    filters.value.material_id !== '' ||
-    filters.value.finishing !== '' ||
-    searchQuery.value.trim() !== ''
-  )
+  return hasUserInteracted.value
 })
 
 // ============================================
@@ -449,10 +417,8 @@ const fetchProducts = async () => {
     if (filters.value.material_id) {
       params.append('material_id', String(filters.value.material_id))
     }
-    if (filters.value.finishing) {
-      params.append('finishing', filters.value.finishing)
-    }
     
+    // Jika ada params, gunakan /filter endpoint, jika tidak gunakan / endpoint
     const url = params.toString() 
       ? `${API_BASE}/products/filter?${params.toString()}`
       : `${API_BASE}/products/`
@@ -515,8 +481,11 @@ const searchProducts = async () => {
 // HANDLER FUNCTIONS
 // ============================================
 
-// Apply filters
-const applyFilters = () => {
+// On filter dropdown change
+const onFilterChange = () => {
+  // Mark that user has interacted
+  hasUserInteracted.value = true
+  
   // Update category name for breadcrumb
   if (filters.value.category_id) {
     const category = categories.value.find(c => c.id === Number(filters.value.category_id))
@@ -530,30 +499,46 @@ const applyFilters = () => {
 
 // Handle search
 const handleSearch = () => {
+  // Mark that user has interacted
+  hasUserInteracted.value = true
+  
   if (searchQuery.value.trim()) {
     searchProducts()
   } else {
-    applyFilters()
+    fetchProducts()
   }
 }
 
 // Select category from card click
 const selectCategory = (category: Category) => {
+  hasUserInteracted.value = true
   filters.value.category_id = category.id
   selectedCategoryName.value = category.category_name
   fetchProducts()
 }
 
-// Clear all filters
+// Clear all filters - kembali ke tampilan categories
 const clearFilters = () => {
   filters.value = {
     category_id: '',
-    material_id: '',
-    finishing: ''
+    material_id: ''
   }
   searchQuery.value = ''
   selectedCategoryName.value = ''
   products.value = []
+  hasUserInteracted.value = false // Reset interaction state
+}
+
+// Shared state untuk passing product data ke detail page
+const pendingProduct = useState<Product | null>('detail-page-product', () => null)
+
+// Navigate to detail page, passing product data via useState
+const goToDetail = (product: Product) => {
+  pendingProduct.value = product
+  router.push({
+    path: '/detail',
+    query: { id: String(product.id) }
+  })
 }
 
 // Get product image (primary or first available)
@@ -585,6 +570,7 @@ onMounted(async () => {
   // Check if category is passed via query params (from homepage)
   const categoryParam = route.query.category
   if (categoryParam) {
+    hasUserInteracted.value = true
     filters.value.category_id = Number(categoryParam)
     const category = categories.value.find(c => c.id === Number(categoryParam))
     selectedCategoryName.value = category?.category_name || ''
@@ -595,6 +581,7 @@ onMounted(async () => {
 // Watch for route changes (when coming from homepage with category query)
 watch(() => route.query.category, async (newCategory) => {
   if (newCategory) {
+    hasUserInteracted.value = true
     filters.value.category_id = Number(newCategory)
     const category = categories.value.find(c => c.id === Number(newCategory))
     selectedCategoryName.value = category?.category_name || ''
@@ -610,6 +597,13 @@ watch(() => route.query.category, async (newCategory) => {
 
 .font-gotham {
   font-family: 'Gotham', sans-serif;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 @keyframes pulse {
