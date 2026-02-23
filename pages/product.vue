@@ -46,7 +46,7 @@
 
         <!-- Dark Red Background - Filter Controls -->
         <div class="bg-red-900 -mt-10 relative
-              grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr_1fr_auto] 
+              grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr_auto] 
               items-end
               gap-4
               rounded-3xl 
@@ -75,7 +75,7 @@
           </div>
 
           <!-- Finishing Filter -->
-          <div class="text-white">
+          <!-- <div class="text-white">
             <p class="mb-2">Finishing</p>
             <select 
               v-model="filters.finishing" 
@@ -91,7 +91,7 @@
                 {{ finish }}
               </option>
             </select>
-          </div>
+          </div> -->
 
           <!-- Material Filter -->
           <div class="text-white">
@@ -560,7 +560,7 @@ const clearFilters = () => {
 const getProductImage = (product: Product): string => {
   if (product.images && product.images.length > 0) {
     const primaryImage = product.images.find(img => img.is_primary)
-    return primaryImage?.image_url || product.images[0].image_url
+    return primaryImage?.image_url || product.images[0]!.image_url
   }
   return product.image_url || '/placeholder.png'
 }
