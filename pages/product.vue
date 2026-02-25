@@ -154,15 +154,25 @@
             @click="selectCategory(category)"
             class="cursor-pointer"
           >
-            <div class="relative w-full h-[500px] rounded-2xl overflow-hidden group border-4 border-red-100 shadow-lg shadow-red-300/50 hover:shadow-xl hover:shadow-red-400/60 transition-all duration-300">
-              <!-- Background Image -->
-              <div 
-                class="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-transform duration-300 group-hover:scale-105"
+            <div class="relative w-full h-[500px] rounded-2xl overflow-hidden group border-2 border-transparent shadow-lg shadow-red-300/50 hover:scale-105 hover:border-red-500 transition-all duration-300 ease-out">
+              <!-- Blurred background layer: mengisi area kosong dengan warna gambar -->
+              <div
+                class="absolute inset-0 w-full h-full bg-cover bg-center scale-110 blur-md brightness-75"
                 :style="{ backgroundImage: `url(${category.image_url || '/placeholder.png'})` }"
-              >
-                <!-- Overlay Gradient -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+              ></div>
+
+              <!-- Gambar asli: tampil full tanpa crop di atas blur background -->
+              <div class="absolute inset-0 flex items-center justify-center">
+                <img
+                  :src="category.image_url || '/placeholder.png'"
+                  :alt="category.category_name"
+                  class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                  @error="handleImageError"
+                />
               </div>
+
+              <!-- Overlay Gradient -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
 
               <!-- Information Box - Positioned at bottom -->
               <div class="absolute bottom-0 left-0 right-0">
