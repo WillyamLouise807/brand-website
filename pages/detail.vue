@@ -112,6 +112,7 @@
               <img 
                 :src="selectedImage" 
                 class="max-w-full max-h-full object-contain transition duration-300"
+                @click="openZoom(selectedImage)"
                 @error="handleImageError"
               />
             </div>
@@ -153,6 +154,7 @@
                 <img 
                   :src="dimensionImage" 
                   class="max-w-full max-h-full object-contain transition duration-300"
+                  @click="openZoom(dimensionImage)"
                   @error="handleImageError"
                 />
               </div>
@@ -298,6 +300,83 @@
   </div>
   
   <FooterComponent />
+
+  <!-- Zoom Modal -->
+      <div
+        v-if="isZoomOpen"
+        class="fixed inset-0 bg-white bg-opacity-95 z-50 flex items-center justify-center"
+        @click.self="closeZoom"
+      >
+        <!-- Close Button -->
+        <button
+          @click="closeZoom"
+          class="absolute top-4 right-4 z-10 bg-gray-100 rounded-full p-2 hover:bg-gray-100 transition"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <!-- Zoom Controls -->
+        <div class="absolute top-4 left-4 z-10 bg-gray-100 rounded-lg shadow-lg p-2 flex gap-2">
+          <button
+            @click="zoomIn"
+            class="p-2 hover:bg-gray-100 rounded transition"
+            title="Zoom In"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+            </svg>
+          </button>
+          <button
+            @click="zoomOut"
+            class="p-2 hover:bg-gray-100 rounded transition"
+            title="Zoom Out"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7" />
+            </svg>
+          </button>
+          <button
+            @click="resetZoom"
+            class="p-2 hover:bg-gray-100 rounded transition"
+            title="Reset"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Zoom Level Indicator -->
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10 bg-gray-100 rounded-full px-4 py-2 shadow-lg">
+          <span class="text-sm font-medium">{{ Math.round(zoomLevel * 100) }}%</span>
+        </div>
+
+        <!-- Image Container -->
+        <div 
+          ref="zoomContainer"
+          class="relative w-full h-full overflow-hidden cursor-grab active:cursor-grabbing flex items-center justify-center"
+          @mousedown="startDrag"
+          @mousemove="drag"
+          @mouseup="stopDrag"
+          @mouseleave="stopDrag"
+          @wheel.prevent="handleWheel"
+          @click="handleImageClick"
+        >
+          <img
+            ref="zoomImageElement"
+            :src="zoomImage"
+            alt="Zoom View"
+            class="select-none pointer-events-none max-w-full max-h-full object-contain"
+            :style="{
+              transform: `translate(${translateX}px, ${translateY}px) scale(${zoomLevel})`,
+              transformOrigin: 'center center',
+              transition: isAnimating ? 'transform 0.3s ease-out' : 'none'
+            }"
+          />
+        </div>
+      </div>
 </template>
 
 <script lang="ts" setup>
@@ -305,6 +384,112 @@ import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 import FooterComponent from '~/components/footer.vue'
+
+// ===== ZOOM STATE =====
+const isZoomOpen = ref(false)
+const zoomImage = ref('')
+const zoomLevel = ref(1)
+const translateX = ref(0)
+const translateY = ref(0)
+const isDragging = ref(false)
+const dragStartX = ref(0)
+const dragStartY = ref(0)
+const lastTranslateX = ref(0)
+const lastTranslateY = ref(0)
+const isAnimating = ref(false)
+const zoomContainer = ref<HTMLElement | null>(null)
+const zoomImageElement = ref<HTMLImageElement | null>(null)
+
+  function openZoom(img: string) {
+  zoomImage.value = img
+  isZoomOpen.value = true
+  resetZoom()
+}
+
+function closeZoom() {
+  isZoomOpen.value = false
+  resetZoom()
+}
+
+function resetZoom() {
+  isAnimating.value = true
+  zoomLevel.value = 1
+  translateX.value = 0
+  translateY.value = 0
+  lastTranslateX.value = 0
+  lastTranslateY.value = 0
+  isDragging.value = false
+  setTimeout(() => { isAnimating.value = false }, 300)
+}
+
+function zoomIn() {
+  isAnimating.value = true
+  zoomLevel.value = Math.min(zoomLevel.value + 0.5, 5)
+  setTimeout(() => { isAnimating.value = false }, 300)
+}
+
+function zoomOut() {
+  isAnimating.value = true
+  zoomLevel.value = Math.max(zoomLevel.value - 0.5, 1)
+  if (zoomLevel.value === 1) {
+    translateX.value = 0
+    translateY.value = 0
+    lastTranslateX.value = 0
+    lastTranslateY.value = 0
+  }
+  setTimeout(() => { isAnimating.value = false }, 300)
+}
+
+function handleImageClick(e: MouseEvent) {
+  e.stopPropagation()
+  isAnimating.value = true
+  if (zoomLevel.value < 2) {
+    zoomLevel.value = 2
+  } else {
+    zoomLevel.value = 1
+    translateX.value = 0
+    translateY.value = 0
+    lastTranslateX.value = 0
+    lastTranslateY.value = 0
+  }
+  setTimeout(() => { isAnimating.value = false }, 300)
+}
+
+function handleWheel(e: WheelEvent) {
+  e.preventDefault()
+  const delta = e.deltaY > 0 ? -0.1 : 0.1
+  isAnimating.value = false
+  zoomLevel.value = Math.max(1, Math.min(5, zoomLevel.value + delta))
+  if (zoomLevel.value === 1) {
+    translateX.value = 0
+    translateY.value = 0
+    lastTranslateX.value = 0
+    lastTranslateY.value = 0
+  }
+}
+
+function startDrag(e: MouseEvent) {
+  if (zoomLevel.value <= 1) return
+  isDragging.value = true
+  dragStartX.value = e.clientX - lastTranslateX.value
+  dragStartY.value = e.clientY - lastTranslateY.value
+  isAnimating.value = false
+}
+
+function drag(e: MouseEvent) {
+  if (!isDragging.value || zoomLevel.value <= 1) return
+  const maxTranslate = 500 * zoomLevel.value
+  translateX.value = Math.max(-maxTranslate, Math.min(maxTranslate, e.clientX - dragStartX.value))
+  translateY.value = Math.max(-maxTranslate, Math.min(maxTranslate, e.clientY - dragStartY.value))
+}
+
+function stopDrag() {
+  if (isDragging.value) {
+    lastTranslateX.value = translateX.value
+    lastTranslateY.value = translateY.value
+  }
+  isDragging.value = false
+}
 
 // ============================================
 // INTERFACES
@@ -381,7 +566,8 @@ const productImages = computed<string[]>(() => {
   if (!product.value) return []
   
   if (product.value.images && product.value.images.length > 0) {
-    return product.value.images.map(img => img.image_url)
+    // Mulai dari gambar ke-2 (index 1); gambar pertama hanya untuk thumbnail di product list
+    return product.value.images.slice(1).map(img => img.image_url)
   }
   
   if (product.value.image_url) {
@@ -503,8 +689,8 @@ const applyProductData = (data: Product) => {
   }
 
   if (data.images && data.images.length > 0) {
-    const primaryImage = data.images.find((img: any) => img.is_primary)
-    selectedImage.value = primaryImage?.image_url || data.images[0]!.image_url
+    // Preview mulai dari gambar ke-2 (index 1); fallback ke index 0 jika hanya ada 1 gambar
+    selectedImage.value = data.images[1]?.image_url ?? data.images[0]!.image_url
   } else if (data.image_url) {
     selectedImage.value = data.image_url
   } else {
@@ -599,6 +785,10 @@ watch(() => route.query.id, async (newId) => {
 .font-gotham {
   font-family: 'Gotham', sans-serif;
 }
+
+/* Fitur Zoom */
+.fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
 
 /* Line clamp for text truncation */
 .line-clamp-2 {
