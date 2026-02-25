@@ -232,7 +232,7 @@
             class="relative w-full h-auto rounded-3xl overflow-hidden group cursor-pointer border-4 border-red-100 shadow-lg shadow-red-300/50 flex flex-col bg-white hover:shadow-xl hover:shadow-red-400/60 transition-all duration-300"
           >
             <!-- Product Image with Fixed Height -->
-            <div class="h-64 relative p-4 bg-gray-50">
+            <div class="h-64 relative p-4">
               <div class="w-full h-full flex items-center justify-center">
                 <img
                   :src="getProductImage(product)"
