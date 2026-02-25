@@ -135,7 +135,7 @@
             <!-- MATERIAL -->
             <div>
               <h3 class="text-2xl font-bold tracking-widest">MATERIAL</h3>
-              <p class="mt-3 text-xl tracking-wide">{{ product.material?.material_name || '-' }}</p>
+              <p class="mt-3 text-xl tracking-wide">{{ product.materials?.map(m => m.material_name).join(', ') || '-' }}</p>
             </div>
           </div>
 
@@ -257,7 +257,7 @@
           </div>
 
           <!-- Recommended Products Grid -->
-          <div v-else class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+          <div v-else class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
             <div
               v-for="recProduct in recommendedProducts"
               :key="recProduct.id"
