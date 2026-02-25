@@ -12,7 +12,7 @@
         :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
       >
         <!-- Slide 1 Command-->
-        <div class="min-w-full h-full relative">
+        <div class="min-w-full shrink-0 h-full relative">
           <img 
             src="/gambar-index-1.png" 
             alt="Glatino Premium Slide 1"
@@ -21,7 +21,7 @@
         </div>
         
         <!-- Slide 2 Command-->
-        <div class="min-w-full h-full relative">
+        <div class="min-w-full shrink-0 h-full relative">
           <img 
             src="/gambar-index-2.png" 
             alt="Glatino Premium Slide 2"
@@ -30,7 +30,7 @@
         </div>
         
         <!-- Slide 3 Command-->
-        <div class="min-w-full h-full relative">
+        <div class="min-w-full shrink-0 h-full relative">
           <img 
             src="/gambar-index-3.png" 
             alt="Glatino Premium Slide 3"
@@ -40,7 +40,7 @@
       </div>
 
       <!-- Dots Indicator Command-->
-      <div class="absolute bottom-32 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
+      <div class="absolute bottom-8 sm:bottom-16 md:bottom-32 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
         <button
           v-for="(slide, index) in totalSlides"
           :key="index"
@@ -64,7 +64,7 @@
     </div>
 
     <!-- Our Products Section - Overlapping Command-->
-    <div class="relative -mt-24 z-30">
+    <div class="relative -mt-12 sm:-mt-16 lg:-mt-24 z-30">
       <div class="container mx-auto">
         <div class="bg-white rounded-3xl shadow-2xl">
           <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
@@ -120,7 +120,7 @@
       </div>
 
       <!-- Categories Grid - LAYOUT PERSIS SEPERTI KODE PERTAMA -->
-      <div v-else class="grid grid-cols-1 md:grid-cols-4 gap-8 justify-center items-center">
+      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8 justify-center items-center">
         <div 
           v-for="category in categories" 
           :key="category.id"
@@ -130,7 +130,7 @@
                   hover:scale-105 hover:border-red-500"
         >
           <!-- Image langsung tanpa wrapper - PERSIS seperti kode pertama -->
-          <img class="h-[400px] rounded-3xl "
+          <img class="h-[400px] sm:h-[320px] md:h-[400px] rounded-3xl"
             :src="category.image_url || '/placeholder.png'" 
             :alt="category.category_name"
             @error="handleImageError"
@@ -167,7 +167,7 @@
     </div>
 
     <!-- Section e-catalog Command -->    
-    <section class="relative w-full h-[1063px] bg-[#4A1314] overflow-hidden flex items-center justify-center">
+    <section class="relative w-full min-h-[400px] sm:min-h-[600px] lg:h-[1063px] bg-[#4A1314] mt-12 sm:mt-16 lg:mt-24 overflow-hidden flex items-center justify-center py-16 lg:py-0">
 
       <!-- Image layer -->
       <div 
@@ -177,13 +177,13 @@
 
       <!-- Content -->
       <div class="relative z-10 text-center px-6">
-        <h1 class="text-white text-3xl md:text-5xl uppercase leading-tight mb-16 font-gotham">
+        <h1 class="text-white text-xl sm:text-3xl md:text-5xl uppercase leading-tight mb-8 sm:mb-12 lg:mb-16 font-gotham">
           Where Premium Remarkable Quality <br /> <br>
           meets modern lifestyle
         </h1>
 
         <button
-          class="bg-red-600 text-white text-2xl px-32 py-6 rounded-full font-medium
+          class="bg-red-600 text-white text-base sm:text-xl lg:text-2xl px-12 sm:px-20 lg:px-32 py-3 sm:py-4 lg:py-6 rounded-full font-medium
                 hover:bg-red-700 transition duration-300"
         >
           E-Catalog
@@ -192,7 +192,7 @@
     </section>
     
     <!-- Reviews Section Command-->
-    <div class="container mx-auto py-32 px-6">
+    <div class="container mx-auto py-12 sm:py-20 lg:py-32 px-6">
       <!-- Header -->
       <div class="flex justify-between items-center mb-10">
         <h2 class="text-4xl lg:text-5xl font-semibold text-black">
@@ -226,18 +226,18 @@
 
       <!-- Reviews Carousel with Infinite Loop Command-->
       <div class="relative overflow-visible">
-        <div 
+        <div
           ref="carouselTrack"
           class="flex gap-6"
           :class="{ 'transition-transform duration-500 ease-in-out': isTransitioning }"
-          :style="{ transform: `translateX(calc(-${currentReviewIndex * 33.333}% - ${currentReviewIndex * 1.5}rem))` }"
+          :style="carouselStyle"
         >
           <!-- Review Card -->
           <div
             v-for="(review, index) in infiniteReviews"
             :key="`review-${index}`"
             :class="[
-              'min-w-[calc(33.333%-1rem)] bg-white rounded-2xl p-8 border border-gray-200',
+              'min-w-[90%] sm:min-w-[calc(50%-0.75rem)] lg:min-w-[calc(33.333%-1rem)] bg-white rounded-2xl p-8 border border-gray-200',
               'transition-all duration-300',
               isCardVisible(index)
                 ? 'opacity-100 blur-0 scale-100 hover:shadow-2xl hover:-translate-y-2'
@@ -364,23 +364,36 @@ const loadingCategories = ref(true)
 const fetchCategories = async () => {
   try {
     loadingCategories.value = true
-    
+
     const response = await axios.get('https://backend-brand-website.vercel.app/api/api/categories/')
-    
     let data = response.data
 
-    if (Array.isArray(data)) {
-      categories.value = data
-    } else if (data && Array.isArray(data.data)) {
-      categories.value = data.data
-    } else if (data && Array.isArray(data.results)) {
-      categories.value = data.results
-    } else {
-      console.log('Unexpected response shape:', data)
+    if (data && Array.isArray(data.data)) data = data.data
+    else if (data && Array.isArray(data.results)) data = data.results
+    else if (!Array.isArray(data)) { console.log('Unexpected response shape:', data); data = [] }
+
+    const ORDER = [1, 12, 11, 14]
+
+    const localImages: Record<number, string> = {
+      1: '/handle-roses.png',
+      12: '/hinge.png',
+      11: '/pull-handle.png',
+      14: '/aluminium-lock.png',
     }
-    
+
+    // Filter berdasarkan ID spesifik & urutkan sesuai ORDER
+    const filtered = ORDER
+      .map(id => (data as Category[]).find(c => c.id === id))
+      .filter(Boolean) as Category[]
+
+    // Override image dengan local image
+    categories.value = filtered.map(c => ({
+      ...c,
+      image_url: localImages[c.id] ?? c.image_url
+    }))
+
     console.log('✅ Categories loaded:', categories.value)
-    
+
   } catch (error: any) {
     console.error('❌ Error fetching categories:', error)
   } finally {
@@ -437,8 +450,28 @@ const infiniteReviews = computed(() => {
   ]
 })
 
+// Window width for responsive carousel
+const windowWidth = ref(1024)
+const handleResize = () => { windowWidth.value = window.innerWidth }
+
+const visibleCards = computed(() => {
+  if (windowWidth.value >= 1024) return 3
+  if (windowWidth.value >= 640) return 2
+  return 1
+})
+
+const stepPercent = computed(() => {
+  if (windowWidth.value >= 1024) return 33.333
+  if (windowWidth.value >= 640) return 50
+  return 90
+})
+
+const carouselStyle = computed(() => ({
+  transform: `translateX(calc(-${currentReviewIndex.value * stepPercent.value}% - ${currentReviewIndex.value * 1.5}rem))`
+}))
+
 const isCardVisible = (index: number) => {
-  return index >= currentReviewIndex.value && index < currentReviewIndex.value + 3
+  return index >= currentReviewIndex.value && index < currentReviewIndex.value + visibleCards.value
 }
 
 const nextReview = () => {
@@ -469,11 +502,14 @@ const previousReview = () => {
 // LIFECYCLE HOOKS
 // ============================================
 onMounted(() => {
+  windowWidth.value = window.innerWidth
+  window.addEventListener('resize', handleResize)
   startAutoPlay()
   fetchCategories()
 })
 
 onUnmounted(() => {
+  window.removeEventListener('resize', handleResize)
   stopAutoPlay()
 })
 </script>

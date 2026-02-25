@@ -4,7 +4,7 @@
     <div class="relative overflow-hidden">
       <!-- Background Image Section with Transition -->
       <div 
-        class="relative w-full h-[680px] bg-cover bg-center bg-no-repeat transition-all duration-1000 ease-in-out"
+        class="relative w-full h-[280px] sm:h-[400px] md:h-[540px] lg:h-[680px] bg-cover bg-center bg-no-repeat transition-all duration-1000 ease-in-out"
         :style="{ backgroundImage: `url('${currentBanner.image}')` }"
       >
         <!-- Dark Overlay -->
@@ -14,14 +14,14 @@
         <div class="relative z-10 container mx-auto px-6 h-full flex items-center">
           <div class="w-full lg:w-1/2">
             <!-- Main Title with Conditional Text Color -->
-            <h1 class="text-2xl lg:text-4xl font-semibold mb-8 leading-tight transition-opacity duration-500" 
+            <h1 class="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-semibold mb-3 sm:mb-6 lg:mb-8 leading-tight transition-opacity duration-500"
                 :class="currentBanner.textColor"
                 :key="currentIndex">
               {{ currentBanner.title }}
             </h1>
             
             <!-- Description with Conditional Text Color -->
-            <p class="text-sm lg:text-lg text-justify leading-relaxed max-w-2xl transition-opacity duration-500" 
+            <p class="text-xs sm:text-sm md:text-base lg:text-lg text-justify leading-relaxed max-w-2xl transition-opacity duration-500"
               :class="currentBanner.textColor"
               :key="`desc-${currentIndex}`"
               v-html="currentBanner.description">
@@ -32,7 +32,7 @@
       
       <!-- Navigation Elements -->
       <!-- Navigation Dots -->
-      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-50">
+      <div class="absolute bottom-4 sm:bottom-6 lg:bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-50">
         <button
           v-for="(banner, index) in banners"
           :key="index"

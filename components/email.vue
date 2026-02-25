@@ -61,7 +61,7 @@
     <div class="mt-8 flex justify-center mb-10">
       <button
         type="submit"
-        class="px-8 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-300"
+        class="w-full sm:w-auto px-8 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-300"
       >
         Submit
       </button>

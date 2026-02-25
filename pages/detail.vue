@@ -326,21 +326,27 @@ interface ProductImage {
   is_primary: boolean
 }
 
+interface SizeImage {
+  id: number
+  product_id: number
+  image_url: string
+}
+
 interface Product {
   id: number
   product_name: string
   product_code: string
   category_id: number
-  material_id: number
   color: string
   description: string
   shopee_url?: string
   tokopedia_url?: string
-  dimension_image?: string
   category?: Category
   material?: Material
+  materials?: Material[]
   images?: ProductImage[]
   image_url?: string
+  size_image?: SizeImage
 }
 
 // ============================================
@@ -360,6 +366,7 @@ const pendingProduct = useState<Product | null>('detail-page-product', () => nul
 const product = ref<Product | null>(null)
 const recommendedProducts = ref<Product[]>([])
 const selectedImage = ref<string>('')
+const sizeImageUrl = ref<string>('')
 
 const loading = ref(true)
 const loadingRecommended = ref(true)
@@ -386,10 +393,7 @@ const productImages = computed<string[]>(() => {
 
 // Get dimension image
 const dimensionImage = computed<string>(() => {
-  if (product.value?.dimension_image) {
-    return product.value.dimension_image
-  }
-  return '/produk/ukuran.png' // Default dimension image
+  return sizeImageUrl.value || '/produk/ukuran.png'
 })
 
 // ============================================
@@ -397,46 +401,47 @@ const dimensionImage = computed<string>(() => {
 // ============================================
 
 // Fetch Product Detail
+// NOTE: Backend tidak punya route GET /products/{id}, jadi fetch semua lalu filter by ID
 const fetchProduct = async (productId: string | number) => {
   try {
     loading.value = true
     error.value = null
 
-    const url = `${API_BASE}/products/${productId}/`
-    console.log('🔍 Fetching product from:', url)
+    const response = await axios.get(`${API_BASE}/products/`)
+    const data = response.data
+    const products: Product[] = Array.isArray(data) ? data : (data?.data ?? [])
 
-    const response = await axios.get(url)
-
-    let data = response.data
-    if (data?.data) {
-      product.value = data.data
-    } else {
-      product.value = data
+    const found = products.find(p => p.id === Number(productId))
+    if (!found) {
+      error.value = 'Product not found'
+      return
     }
 
-    // Set selected image to primary or first image
-    if (product.value) {
-      if (product.value.images && product.value.images.length > 0) {
-        const primaryImage = product.value.images.find(img => img.is_primary)
-        selectedImage.value = primaryImage?.image_url || product.value.images[0]!.image_url
-      } else if (product.value.image_url) {
-        selectedImage.value = product.value.image_url
-      } else {
-        selectedImage.value = '/placeholder.png'
-      }
-    }
-
+    applyProductData(found)
     console.log('✅ Product loaded:', product.value)
 
   } catch (err: any) {
     console.error('❌ Error fetching product:', err)
-    console.error('❌ Status:', err.response?.status)
-    console.error('❌ Data:', err.response?.data)
-    error.value = err.response?.status === 404
-      ? 'Product not found'
-      : `Failed to load product (Status: ${err.response?.status ?? 'Network Error'})`
+    error.value = `Failed to load product (Status: ${err.response?.status ?? 'Network Error'})`
   } finally {
     loading.value = false
+  }
+}
+
+// Fetch Size Image
+const fetchSizeImage = async (productId: string | number) => {
+  try {
+    const response = await axios.get(`${API_BASE}/product-size-image/${productId}`)
+    const data = response.data
+    const images = data?.data ?? data
+    if (Array.isArray(images) && images.length > 0) {
+      sizeImageUrl.value = images[0].image_url
+    } else if (images?.image_url) {
+      sizeImageUrl.value = images.image_url
+    }
+  } catch (err) {
+    console.error('❌ Error fetching size image:', err)
+    sizeImageUrl.value = ''
   }
 }
 
@@ -491,6 +496,12 @@ const fetchRecommendedProducts = async (productId: string | number) => {
 // Helper: terapkan data produk ke state lokal + set gambar
 const applyProductData = (data: Product) => {
   product.value = data
+
+  // Ekstrak size_image yang sudah di-embed di response products/
+  if (data.size_image?.image_url) {
+    sizeImageUrl.value = data.size_image.image_url
+  }
+
   if (data.images && data.images.length > 0) {
     const primaryImage = data.images.find((img: any) => img.is_primary)
     selectedImage.value = primaryImage?.image_url || data.images[0]!.image_url
@@ -532,40 +543,53 @@ onMounted(async () => {
   const productId = route.query.id as string
 
   if (pendingProduct.value) {
-    // Gunakan data dari useState (dikirim dari product list / recommended)
     applyProductData(pendingProduct.value)
     pendingProduct.value = null
     loading.value = false
-    if (productId) await fetchRecommendedProducts(productId)
+    if (productId) {
+      // Jalankan paralel; fetchSizeImage sebagai fallback jika size_image tidak ada di data
+      await Promise.all([
+        fetchRecommendedProducts(productId),
+        ...(sizeImageUrl.value ? [] : [fetchSizeImage(productId)]),
+      ])
+    }
     return
   }
 
-  // Fallback: fetch dari API (untuk akses langsung via URL)
+  // Refresh / akses langsung via URL
   if (productId) {
     await fetchProduct(productId)
-    await fetchRecommendedProducts(productId)
+    await Promise.all([
+      fetchRecommendedProducts(productId),
+      ...(sizeImageUrl.value ? [] : [fetchSizeImage(productId)]),
+    ])
   } else {
     error.value = 'Product ID not found'
     loading.value = false
   }
 })
 
-// Watch for route changes (when navigating between products without remount)
+// Watch for route changes (navigasi antar produk tanpa remount)
 watch(() => route.query.id, async (newId) => {
   if (newId) {
+    sizeImageUrl.value = ''
     if (pendingProduct.value) {
-      // Gunakan data dari useState jika tersedia
       applyProductData(pendingProduct.value)
       pendingProduct.value = null
       loading.value = false
-      await fetchRecommendedProducts(newId as string)
+      await Promise.all([
+        fetchRecommendedProducts(newId as string),
+        ...(sizeImageUrl.value ? [] : [fetchSizeImage(newId as string)]),
+      ])
       window.scrollTo({ top: 0, behavior: 'smooth' })
       return
     }
 
-    // Fallback: fetch dari API
     await fetchProduct(newId as string)
-    await fetchRecommendedProducts(newId as string)
+    await Promise.all([
+      fetchRecommendedProducts(newId as string),
+      ...(sizeImageUrl.value ? [] : [fetchSizeImage(newId as string)]),
+    ])
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 })

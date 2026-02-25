@@ -25,7 +25,7 @@
                 <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4">
                   <path d="M16 3L8 21" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
-                <span class="ml-2 text-sm text-red-600 font-semibold">{{ selectedCategoryName }}</span>
+                <span class="ml-2 text-sm uppercase text-red-600 font-semibold">{{ selectedCategoryName }}</span>
               </div>
             </li>
           </ol>
@@ -42,14 +42,14 @@
         </div>
 
         <!-- Dark Red Background - Filter Controls -->
-        <div class="bg-red-900 -mt-10 relative
+        <div class="bg-red-900 -mt-6 sm:-mt-10 relative
               grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr_auto] 
               items-end
               gap-4
-              rounded-3xl 
+              rounded-3xl
               max-w-6xl
               mx-auto
-              px-8 py-6">
+              px-4 sm:px-8 py-4 sm:py-6">
           
           <!-- Product Categories Filter -->
           <div class="text-white">

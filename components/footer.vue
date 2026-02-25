@@ -1,8 +1,8 @@
 <template>
   <footer class="bg-red-950 text-white font-gotham">
     <!-- Main Footer Content -->
-    <div class="max-w-screen-2xl mx-auto w-full px-6 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-16">
+    <div class="max-w-screen-2xl mx-auto w-full px-6 py-8 md:py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 lg:gap-16">
         
         <!-- Logo and Stay in the Know Section -->
         <div class="col-span-1">
