@@ -148,7 +148,7 @@
             </div>
 
             <!-- DIMENSION -->
-            <div class="mt-10">
+            <div v-if="sizeImageUrl" class="mt-10">
               <h3 class="text-2xl font-bold uppercase tracking-[2px] mb-6">DIMENSION</h3>
               <div class="w-[370px] h-[300px] flex items-center justify-center overflow-hidden">
                 <img 
@@ -579,7 +579,7 @@ const productImages = computed<string[]>(() => {
 
 // Get dimension image
 const dimensionImage = computed<string>(() => {
-  return sizeImageUrl.value || '/produk/ukuran.png'
+  return sizeImageUrl.value
 })
 
 // ============================================
