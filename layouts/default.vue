@@ -30,11 +30,13 @@
         <div class="hidden lg:flex w-64 items-center">
           <div class="relative w-full">
             <input
+              v-model="navSearchQuery"
+              @keyup.enter="handleNavSearch"
               type="text"
               placeholder="Search Product..."
               class="w-full rounded-full bg-gray-200 py-2 pl-5 pr-12 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500"
             />
-            <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+            <div class="absolute inset-y-0 right-4 flex items-center cursor-pointer" @click="handleNavSearch">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m1.85-5.65a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z" />
               </svg>
@@ -84,11 +86,13 @@
         <div class="mt-3 pt-3 border-t border-gray-100">
           <div class="relative w-full">
             <input
+              v-model="navSearchQuery"
+              @keyup.enter="handleNavSearch"
               type="text"
               placeholder="Search Product..."
               class="w-full rounded-full bg-gray-200 py-2 pl-5 pr-12 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500"
             />
-            <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+            <div class="absolute inset-y-0 right-4 flex items-center cursor-pointer" @click="handleNavSearch">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m1.85-5.65a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z" />
               </svg>
@@ -107,9 +111,20 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
+const router = useRouter()
+
+const navSearchQuery = ref('')
+
+const handleNavSearch = () => {
+  const q = navSearchQuery.value.trim()
+  if (!q) return
+  router.push({ path: '/product', query: { search: q } })
+  navSearchQuery.value = ''
+  closeMenu()
+}
 
 const isProductActive = computed(() => {
   return route.path.startsWith('/product') || route.path.startsWith('/detail')

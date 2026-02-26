@@ -576,7 +576,7 @@ onMounted(async () => {
     fetchCategories(),
     fetchMaterials()
   ])
-  
+
   // Check if category is passed via query params (from homepage)
   const categoryParam = route.query.category
   if (categoryParam) {
@@ -585,6 +585,15 @@ onMounted(async () => {
     const category = categories.value.find(c => c.id === Number(categoryParam))
     selectedCategoryName.value = category?.category_name || ''
     await fetchProducts()
+    return
+  }
+
+  // Check if search query is passed from navbar
+  const searchParam = route.query.search
+  if (searchParam) {
+    hasUserInteracted.value = true
+    searchQuery.value = String(searchParam)
+    await searchProducts()
   }
 })
 
@@ -596,6 +605,17 @@ watch(() => route.query.category, async (newCategory) => {
     const category = categories.value.find(c => c.id === Number(newCategory))
     selectedCategoryName.value = category?.category_name || ''
     await fetchProducts()
+  }
+})
+
+// Watch for search query from navbar
+watch(() => route.query.search, async (newSearch) => {
+  if (newSearch) {
+    hasUserInteracted.value = true
+    searchQuery.value = String(newSearch)
+    filters.value = { category_id: '', material_id: '' }
+    selectedCategoryName.value = ''
+    await searchProducts()
   }
 })
 </script>

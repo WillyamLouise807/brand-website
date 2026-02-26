@@ -21,7 +21,7 @@
             <div class="flex space-x-4">
               <a 
                 href="#" 
-                class="w-auto h-auto rounded-full flex items-center justify-center hover:bg-green-600 transition-colors duration-300"
+                class="w-auto h-auto rounded-full flex items-center justify-center hover:opacity-80 transition-opacity duration-300"
               >
                 <img src="/wa-icon.png" alt="WhatsApp" class="w-8 h-8">
               </a>
@@ -40,13 +40,13 @@
             <div class="flex space-x-4">
               <a 
                 href="#" 
-                class="w-auto h-auto rounded-lg flex items-center justify-center transition-colors duration-300"
+                class="w-auto h-auto rounded-lg flex items-center justify-center hover:opacity-80 transition-opacity duration-300"
               >
                 <img src="/shopee-icon.png" alt="Shopee" class="w-8 h-8">
               </a>
               <a 
                 href="#" 
-                class="w-auto h-auto rounded-lg flex items-center justify-center transition-colors duration-300"
+                class="w-auto h-auto rounded-lg flex items-center justify-center hover:opacity-80 transition-opacity duration-300"
               >
                 <img src="/tokopedia-icon.png" alt="Tokopedia" class="w-8 h-8">
               </a>
