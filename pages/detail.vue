@@ -147,6 +147,12 @@
               <p class="mt-3 text-xl tracking-wide">{{ product.product_code }}</p>
             </div>
 
+            <!-- PRODUCT DESCRIPTION -->
+            <!-- <div>
+              <h3 class="mt-10 text-2xl font-bold uppercase tracking-[2px]">PRODUCT DESCRIPTION</h3>
+              <p class="mt-3 text-xl tracking-wide whitespace-pre-line">{{ product.description }}</p>
+            </div> -->
+
             <!-- DIMENSION -->
             <div v-if="sizeImageUrl" class="mt-10">
               <h3 class="text-2xl font-bold uppercase tracking-[2px] mb-6">DIMENSION</h3>
