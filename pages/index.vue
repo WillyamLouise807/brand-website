@@ -10,13 +10,28 @@
     >
       <div class="relative w-full overflow-hidden">
         <img
-          v-for="(img, index) in mobileSlideImages"
+          v-for="(banner, index) in mobileBanners"
           :key="index"
           v-show="currentSlide === index"
-          :src="img"
+          :src="banner.image"
           :alt="`Glatino Premium Slide ${index + 1}`"
           class="w-full h-auto block"
         />
+
+        <!-- Text overlay bottom 50% with gradient (only shown if title or description exists) -->
+        <div
+          v-if="mobileBanners[currentSlide]?.title || mobileBanners[currentSlide]?.description"
+          class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/75 via-black/30 to-transparent flex items-end z-10"
+        >
+          <div class="px-5 pb-10 w-full">
+            <h1 v-if="mobileBanners[currentSlide]?.title" class="text-white text-lg font-semibold mb-1 leading-tight">
+              {{ mobileBanners[currentSlide]?.title }}
+            </h1>
+            <p v-if="mobileBanners[currentSlide]?.description" class="text-white/85 text-xs leading-relaxed line-clamp-2">
+              {{ mobileBanners[currentSlide]?.description }}
+            </p>
+          </div>
+        </div>
       </div>
 
       <!-- Dots Indicator -->
@@ -90,7 +105,7 @@
     </div>
 
     <!-- Our Products Section - Overlapping Command-->
-    <div class="relative lg:-mt-24 z-30">
+    <div class="relative mt-16 lg:-mt-24 z-30">
       <div class="container mx-auto">
         <div class="bg-white rounded-3xl shadow-2xl">
           <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
@@ -340,10 +355,22 @@ const desktopSlideImages = [
   '/gambar-index-3.png',
 ]
 
-const mobileSlideImages = [
-  '/index-banner-mobile-1.jpeg',
-  '/index-banner-mobile-2.jpeg',
-  '/index-banner-mobile-3.jpeg',
+const mobileBanners = [
+  {
+    image: '/index-banner-mobile-1.jpeg',
+    title: '',
+    description: ''
+  },
+  {
+    image: '/index-banner-mobile-2.jpeg',
+    title: 'Premium Glass Hardware Solutions',
+    description: 'Engineered for modern residential and commercial space'
+  },
+  {
+    image: '/index-banner-mobile-3.jpeg',
+    title: 'The New Statement of Modern Design',
+    description: "The Gun Metal Series is the perfect choice to complement your modern door design. It's time to upgrade your home's look to be more masculine, minimalist, and luxurious!"
+  }
 ]
 
 const currentSlide = ref(0)
