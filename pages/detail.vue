@@ -391,6 +391,15 @@ import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 import FooterComponent from '~/components/footer.vue'
 
+// Use dedicated layout that allows horizontal scroll
+definePageMeta({ layout: 'detail' })
+
+// Render page at 1080px desktop width with no scale-down.
+// On mobile, user sees a 1:1 window into the 1080px layout and can scroll left/right.
+useHead({
+  meta: [{ name: 'viewport', content: 'width=1080, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes' }]
+})
+
 // ===== ZOOM STATE =====
 const isZoomOpen = ref(false)
 const zoomImage = ref('')

@@ -1,62 +1,88 @@
 <template>
   <div class="font-gotham">
     <!-- Hero Swiper Section Command-->
-    <div 
-      class="relative w-full h-screen overflow-hidden"
+
+    <!-- ===== MOBILE BANNER (< md) ===== -->
+    <div
+      class="relative w-full md:hidden"
+      @mouseenter="handleMouseEnter"
+      @mouseleave="handleMouseLeave"
+    >
+      <div class="relative w-full overflow-hidden">
+        <img
+          v-for="(img, index) in mobileSlideImages"
+          :key="index"
+          v-show="currentSlide === index"
+          :src="img"
+          :alt="`Glatino Premium Slide ${index + 1}`"
+          class="w-full h-auto block"
+        />
+      </div>
+
+      <!-- Dots Indicator -->
+      <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
+        <button
+          v-for="(slide, index) in totalSlides"
+          :key="index"
+          @click="goToSlide(index)"
+          :class="[
+            'w-3 h-3 rounded-full transition-all duration-300',
+            currentSlide === index ? 'bg-red-500 scale-110' : 'bg-gray-500 bg-opacity-50'
+          ]"
+        />
+      </div>
+
+      <!-- Progress bar -->
+      <div class="absolute bottom-0 left-0 w-full h-1 bg-black bg-opacity-20">
+        <div
+          class="h-full bg-red-500 transition-all duration-100 ease-linear"
+          :style="{ width: `${progressWidth}%` }"
+        />
+      </div>
+    </div>
+
+    <!-- ===== DESKTOP BANNER (≥ md) ===== -->
+    <div
+      class="relative hidden md:block w-full h-screen overflow-hidden"
       @mouseenter="handleMouseEnter"
       @mouseleave="handleMouseLeave"
     >
       <!-- Swiper Container -->
-      <div 
-        class="flex transition-transform duration-500 ease-in-out h-full"
+      <div
+        class="flex h-full transition-transform duration-500 ease-in-out"
         :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
       >
-        <!-- Slide 1 Command-->
-        <div class="min-w-full shrink-0 h-full relative">
-          <img 
-            src="/gambar-index-1.png" 
-            alt="Glatino Premium Slide 1"
-            class="w-full h-full object-cover"
-          />
-        </div>
-        
-        <!-- Slide 2 Command-->
-        <div class="min-w-full shrink-0 h-full relative">
-          <img 
-            src="/gambar-index-2.png" 
-            alt="Glatino Premium Slide 2"
-            class="w-full h-full object-cover"
-          />
-        </div>
-        
-        <!-- Slide 3 Command-->
-        <div class="min-w-full shrink-0 h-full relative">
-          <img 
-            src="/gambar-index-3.png" 
-            alt="Glatino Premium Slide 3"
+        <div
+          v-for="(img, index) in desktopSlideImages"
+          :key="index"
+          class="min-w-full shrink-0 h-full relative"
+        >
+          <img
+            :src="img"
+            :alt="`Glatino Premium Slide ${index + 1}`"
             class="w-full h-full object-cover"
           />
         </div>
       </div>
 
-      <!-- Dots Indicator Command-->
-      <div class="absolute bottom-8 sm:bottom-16 md:bottom-32 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
+      <!-- Dots Indicator -->
+      <div class="absolute bottom-32 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
         <button
           v-for="(slide, index) in totalSlides"
           :key="index"
           @click="goToSlide(index)"
           :class="[
             'w-3 h-3 rounded-full transition-all duration-300 hover:scale-110',
-            currentSlide === index 
-              ? 'bg-red-500 scale-110' 
+            currentSlide === index
+              ? 'bg-red-500 scale-110'
               : 'bg-gray-500 bg-opacity-50 hover:bg-opacity-75'
           ]"
         />
       </div>
 
-      <!-- Auto-play progress indicator Command-->
+      <!-- Progress bar -->
       <div class="absolute bottom-0 left-0 w-full h-1 bg-black bg-opacity-20">
-        <div 
+        <div
           class="h-full bg-red-500 transition-all duration-100 ease-linear"
           :style="{ width: `${progressWidth}%` }"
         />
@@ -64,7 +90,7 @@
     </div>
 
     <!-- Our Products Section - Overlapping Command-->
-    <div class="relative -mt-12 sm:-mt-16 lg:-mt-24 z-30">
+    <div class="relative lg:-mt-24 z-30">
       <div class="container mx-auto">
         <div class="bg-white rounded-3xl shadow-2xl">
           <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
@@ -91,7 +117,7 @@
               </h2>
               
               <!-- Description Command-->
-              <p class="text-black text-lg leading-relaxed mb-8 pr-16 text-justify">
+              <p class="text-black text-lg leading-relaxed mb-8 md:pr-16 text-justify">
                 Discover the full range of <span class="font-semibold">Glatino Premium</span> products, from glass accessories to mechanical lock solutions for aluminum and wooden doors. We also offer <span class="font-semibold">smart locks</span> designed to meet advanced, high-technology security needs.
               </p>              
             </div>
@@ -227,7 +253,11 @@
       </div>
 
       <!-- Reviews Carousel with Infinite Loop Command-->
-      <div class="relative overflow-visible">
+      <div
+        class="relative overflow-visible"
+        @touchstart="handleTouchStart"
+        @touchend="handleTouchEnd"
+      >
         <div
           ref="carouselTrack"
           class="flex gap-6"
@@ -238,12 +268,15 @@
           <div
             v-for="(review, index) in infiniteReviews"
             :key="`review-${index}`"
+            @click="handleCardClick(index)"
             :class="[
               'min-w-[90%] sm:min-w-[calc(50%-0.75rem)] lg:min-w-[calc(33.333%-1rem)] bg-white rounded-2xl p-8 border border-gray-200',
               'transition-all duration-300',
-              isCardVisible(index)
-                ? 'opacity-100 blur-0 scale-100 hover:shadow-2xl hover:-translate-y-2'
-                : 'opacity-40 blur-[2px] scale-95'
+              isActiveCard(index)
+                ? 'opacity-100 blur-0 scale-100 shadow-2xl -translate-y-2'
+                : isCardVisible(index)
+                  ? 'opacity-100 blur-0 scale-100 hover:shadow-2xl hover:-translate-y-2 cursor-pointer'
+                  : 'opacity-40 blur-[2px] scale-95'
             ]"
           >
             <!-- Stars Command-->
@@ -293,8 +326,26 @@ interface Review {
 }
 
 // ============================================
+// SHARED: WINDOW WIDTH (used by hero + reviews)
+// ============================================
+const windowWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1024)
+const handleResize = () => { windowWidth.value = window.innerWidth }
+
+// ============================================
 // HERO SLIDER
 // ============================================
+const desktopSlideImages = [
+  '/gambar-index-1.png',
+  '/gambar-index-2.png',
+  '/gambar-index-3.png',
+]
+
+const mobileSlideImages = [
+  '/index-banner-mobile-1.jpeg',
+  '/index-banner-mobile-2.jpeg',
+  '/index-banner-mobile-3.jpeg',
+]
+
 const currentSlide = ref(0)
 const totalSlides = ref(3)
 const progressWidth = ref(0)
@@ -452,10 +503,6 @@ const infiniteReviews = computed(() => {
   ]
 })
 
-// Window width for responsive carousel
-const windowWidth = ref(1024)
-const handleResize = () => { windowWidth.value = window.innerWidth }
-
 const visibleCards = computed(() => {
   if (windowWidth.value >= 1024) return 3
   if (windowWidth.value >= 640) return 2
@@ -474,6 +521,35 @@ const carouselStyle = computed(() => ({
 
 const isCardVisible = (index: number) => {
   return index >= currentReviewIndex.value && index < currentReviewIndex.value + visibleCards.value
+}
+
+// Hanya card paling tengah dari visible range yang auto-elevated
+const isActiveCard = (index: number) => {
+  const centerOffset = Math.floor(visibleCards.value / 2)
+  return index === currentReviewIndex.value + centerOffset
+}
+
+// Klik card → navigate jika bukan card tengah
+const handleCardClick = (index: number) => {
+  const centerOffset = Math.floor(visibleCards.value / 2)
+  const center = currentReviewIndex.value + centerOffset
+  if (index < center) previousReview()
+  else if (index > center) nextReview()
+}
+
+// Swipe touch untuk mobile
+const touchStartX = ref(0)
+const handleTouchStart = (e: TouchEvent) => {
+  if (e.touches[0]) touchStartX.value = e.touches[0].clientX
+}
+const handleTouchEnd = (e: TouchEvent) => {
+  const endX = e.changedTouches[0]?.clientX
+  if (endX === undefined) return
+  const diff = touchStartX.value - endX
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) nextReview()
+    else previousReview()
+  }
 }
 
 const nextReview = () => {
