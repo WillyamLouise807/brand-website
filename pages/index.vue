@@ -178,7 +178,9 @@
       <!-- Content -->
       <div class="relative z-10 text-center px-6">
         <h1 class="text-white text-xl sm:text-3xl md:text-5xl uppercase leading-tight mb-8 sm:mb-12 lg:mb-16 font-gotham">
-          Where Premium Remarkable Quality <br /> <br>
+          Where Premium Remarkable Quality        
+        </h1>
+        <h1 class="text-white text-xl sm:text-3xl md:text-5xl -mt-8 uppercase leading-tight mb-8 sm:mb-12 lg:mb-16 font-gotham">         
           meets modern lifestyle
         </h1>
 
