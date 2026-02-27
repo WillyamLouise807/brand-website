@@ -26,7 +26,7 @@
       </div>
 
       <!-- Dots -->
-      <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-3 z-50">
+      <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
         <button
           v-for="(banner, index) in banners"
           :key="index"
@@ -39,7 +39,7 @@
       <!-- Arrow Kiri -->
       <button
         @click="previousSlide"
-        class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/20 hover:bg-black/40 rounded-full p-2 z-50 backdrop-blur-sm transition-all duration-300"
+        class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/20 hover:bg-black/40 rounded-full p-2 z-20 backdrop-blur-sm transition-all duration-300"
       >
         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none">
           <path d="M6 12H18M6 12L11 7M6 12L11 17" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -49,7 +49,7 @@
       <!-- Arrow Kanan -->
       <button
         @click="nextSlide"
-        class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/20 hover:bg-black/40 rounded-full p-2 z-50 backdrop-blur-sm transition-all duration-300"
+        class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/20 hover:bg-black/40 rounded-full p-2 z-20 backdrop-blur-sm transition-all duration-300"
       >
         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none">
           <path d="M6 12H18M18 12L13 7M18 12L13 17" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

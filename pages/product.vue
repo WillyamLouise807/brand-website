@@ -16,7 +16,7 @@
                 <svg viewBox="0 0 24 24" fill="none" class="w-4 h-4">
                   <path d="M16 3L8 21" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
-                <span class="ml-2 text-sm text-black">PRODUCT</span>
+                <button @click="clearFilters" class="ml-2 text-sm text-black hover:text-gray-900 cursor-pointer">PRODUCT</button>
               </div>
             </li>
             <!-- Show selected category in breadcrumb -->
@@ -154,7 +154,7 @@
             @click="selectCategory(category)"
             class="cursor-pointer"
           >
-            <div class="relative w-full h-[500px] rounded-2xl overflow-hidden group border-2 border-transparent shadow-lg shadow-red-300/50 hover:scale-105 hover:border-red-500 transition-all duration-300 ease-out">
+            <div class="relative w-full h-[500px] rounded-2xl overflow-hidden group border-2 border-transparent hover:scale-105 hover:border-red-500 transition-all duration-300 ease-out transform-gpu">
               <!-- Blurred background layer: mengisi area kosong dengan warna gambar -->
               <div
                 class="absolute inset-0 w-full h-full bg-cover bg-center scale-110 blur-md brightness-75"
@@ -229,7 +229,7 @@
             v-for="product in products"
             :key="product.id"
             @click="goToDetail(product)"
-            class="relative w-full h-auto rounded-3xl overflow-hidden group cursor-pointer border-4 border-red-100 shadow-lg shadow-red-300/50 flex flex-col bg-white hover:shadow-xl hover:shadow-red-400/60 transition-all duration-300"
+            class="relative w-full h-auto rounded-3xl overflow-hidden group cursor-pointer border-2 border-transparent flex flex-col bg-white hover:scale-105 hover:border-red-500 transition-all duration-300 ease-out"
           >
             <!-- Product Image with Fixed Height -->
             <div class="h-64 relative p-4">

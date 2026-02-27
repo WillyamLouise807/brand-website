@@ -1,6 +1,6 @@
 <template>
   <!-- NAVBAR -->
-  <header class="fixed top-0 left-0 w-full z-50 bg-white shadow font-gotham">
+  <header class="fixed top-0 left-0 w-full z-[100] bg-white shadow font-gotham">
     <div class="container mx-auto">
       <div class="flex items-center p-4 h-20">
 
