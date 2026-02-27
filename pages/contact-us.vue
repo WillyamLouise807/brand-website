@@ -41,15 +41,15 @@
     <div class="grid grid-cols-3 justify-items-center">
       <div class=""> <!-- Tambah background dan shadow -->
         <img src="/contact-1.png" alt="" class="w-[400px] h-auto">
-        <p class="text-center bg-[#ED1D25] text-white rounded-xl py-6">0889-8349-4764</p>    
+        <a href="https://wa.me/6288983494764" target="_blank" rel="noopener noreferrer" class="block text-center bg-[#ED1D25] text-white rounded-xl py-6 hover:underline transition-colors">0889-8349-4764</a>
       </div>
       <div class=""> <!-- Tambah background dan shadow -->
         <img src="/contact-1.png" alt="" class="w-[400px] h-auto">
-        <p class="text-center bg-[#ED1D25] text-white rounded-xl py-6">0889-8349-4764</p>
+        <a href="https://wa.me/6288983494764" target="_blank" rel="noopener noreferrer" class="block text-center bg-[#ED1D25] text-white rounded-xl py-6 hover:underline transition-colors">0889-8349-4764</a>
       </div>
       <div class=""> <!-- Tambah background dan shadow -->
         <img src="/contact-1.png" alt="" class="w-[400px] h-auto">
-        <p class="text-center bg-[#ED1D25] text-white rounded-xl py-6">glatinopremium@gmail.com</p>
+        <a href="mailto:glatinopremium@gmail.com" class="block text-center bg-[#ED1D25] text-white rounded-xl py-6 transition-colors">glatinopremium@gmail.com</a>
       </div>      
     </div>    
     <hr class="border-gray-300 mt-12"/> 
