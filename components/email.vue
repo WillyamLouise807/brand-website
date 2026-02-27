@@ -87,9 +87,9 @@ const submitForm = async () => {
   }
 
   try {
-    const serviceID = 'service_vxriror'
-    const templateID = 'template_2jhvey2'
-    const userID = 'TtWWzLgnnTcXyOfLc'
+    const serviceID = 'service_49dy8bv'
+    const templateID = 'template_3tznw2m'
+    const userID = 'G483lTfz8WgYiD8Cv'
 
     await emailjs.send(
       serviceID,
