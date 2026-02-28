@@ -19,14 +19,18 @@
           <div class="mb-8">
             <h3 class="text-white text-lg font-semibold mb-4">STAY IN THE KNOW</h3>
             <div class="flex space-x-4">
-              <a 
-                href="#" 
+              <a
+                href="https://wa.me/6288983494764"
+                target="_blank"
+                rel="noopener noreferrer"
                 class="w-auto h-auto rounded-full flex items-center justify-center hover:opacity-80 transition-opacity duration-300"
               >
                 <img src="/wa-icon.png" alt="WhatsApp" class="w-8 h-8">
               </a>
-              <a 
-                href="#" 
+              <a
+                href="https://www.instagram.com/glatino_official/"
+                target="_blank"
+                rel="noopener noreferrer"
                 class="w-auto h-auto rounded-full flex items-center justify-center hover:opacity-80 transition-opacity duration-300"
               >
                 <img src="/instagram-icon.png" alt="Instagram" class="w-8 h-8">
@@ -38,14 +42,18 @@
           <div>
             <h3 class="text-white text-lg font-semibold mb-4">OUR MARKETPLACE</h3>
             <div class="flex space-x-4">
-              <a 
-                href="#" 
+              <a
+                href="https://shopee.co.id/glatino.official"
+                target="_blank"
+                rel="noopener noreferrer"
                 class="w-auto h-auto rounded-lg flex items-center justify-center hover:opacity-80 transition-opacity duration-300"
               >
                 <img src="/shopee-icon.png" alt="Shopee" class="w-8 h-8">
               </a>
-              <a 
-                href="#" 
+              <a
+                href="https://www.tokopedia.com/glatino-official-store"
+                target="_blank"
+                rel="noopener noreferrer"
                 class="w-auto h-auto rounded-lg flex items-center justify-center hover:opacity-80 transition-opacity duration-300"
               >
                 <img src="/tokopedia-icon.png" alt="Tokopedia" class="w-8 h-8">
@@ -59,34 +67,34 @@
           <h3 class="text-white text-lg font-semibold mb-6">PRODUCT</h3>
           <ul class="space-y-3">
             <li>
-              <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">
-                Door Lock
-              </a>
+              <NuxtLink to="/product?category=1" class="text-gray-300 hover:text-white transition-colors duration-300">
+                Handle Roses
+              </NuxtLink>
             </li>
             <li>
-              <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">
+              <NuxtLink to="/product?category=5" class="text-gray-300 hover:text-white transition-colors duration-300">
                 Mortise Lock
-              </a>
+              </NuxtLink>
             </li>
             <li>
-              <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">
-                Cylinder
-              </a>
+              <NuxtLink to="/product?category=13" class="text-gray-300 hover:text-white transition-colors duration-300">
+                Engsel Casement
+              </NuxtLink>
             </li>
             <li>
-              <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">
+              <NuxtLink to="/product?category=9" class="text-gray-300 hover:text-white transition-colors duration-300">
                 Floor Hinge
-              </a>
+              </NuxtLink>
             </li>
             <li>
-              <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">
+              <NuxtLink to="/product?category=10" class="text-gray-300 hover:text-white transition-colors duration-300">
                 Patch Fitting
-              </a>
+              </NuxtLink>
             </li>
             <li>
-              <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">
+              <NuxtLink to="/product?category=12" class="text-gray-300 hover:text-white transition-colors duration-300">
                 Glass Accessories
-              </a>
+              </NuxtLink>
             </li>
           </ul>
         </div>
@@ -95,7 +103,9 @@
         <div class="col-span-1">
           <h3 class="text-white text-lg font-semibold mb-6">COMPANY</h3>
           <div class="text-gray-300 text-sm leading-relaxed">
-            <p class="mb-1">PT. GLOBAL BESTINDO JAYA</p>
+            <a href="https://globalbestindojaya.com" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors duration-300">
+              PT. GLOBAL BESTINDO JAYA
+            </a>
           </div>
         </div>
 
@@ -112,7 +122,9 @@
             
             <!-- Phone -->
             <div>
-              <p class="mb-1">Phone: +62 2138764 362</p>
+              <a href="https://wa.me/6288983494764" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors duration-300">
+                Phone: +62 2138764 362
+              </a>
             </div>
             
             <!-- Email -->

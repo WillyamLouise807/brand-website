@@ -225,12 +225,13 @@
           meets modern lifestyle
         </h1>
 
-        <button
-          class="bg-red-600 text-white text-base sm:text-xl lg:text-2xl px-12 sm:px-20 lg:px-32 py-3 sm:py-4 lg:py-6 rounded-full font-medium
+        <NuxtLink
+          to="/e-catalog"
+          class="inline-block bg-red-600 text-white text-base sm:text-xl lg:text-2xl px-12 sm:px-20 lg:px-32 py-3 sm:py-4 lg:py-6 rounded-full font-medium
                 hover:bg-red-700 transition duration-300"
         >
           E-Catalog
-        </button>
+        </NuxtLink>
       </div>
     </section>
     
