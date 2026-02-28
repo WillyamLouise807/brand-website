@@ -30,7 +30,7 @@
       </p>
       <hr class="border-gray-300 mb-12"/> 
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      <div class="grid grid-cols-1 p-5 md:p-0 md:grid-cols-3 gap-6 sm:gap-8">
         <a href="/assets/catalog-glatino-premium.pdf" download>
           <div class="relative cursor-pointer">
             <img src="/catalog.png" alt="" class="w-full">
