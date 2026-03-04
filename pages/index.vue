@@ -453,13 +453,13 @@ const fetchCategories = async () => {
     else if (data && Array.isArray(data.results)) data = data.results
     else if (!Array.isArray(data)) { console.log('Unexpected response shape:', data); data = [] }
 
-    const ORDER = [1, 12, 11, 14]
+    const ORDER = [1, 4, 9, 12]
 
     const localImages: Record<number, string> = {
       1: '/handle-roses.png',
-      12: '/hinge.png',
-      11: '/pull-handle.png',
-      14: '/aluminium-lock.png',
+      4: '/pull-handle.png',
+      9: '/hinge.png',
+      12: '/aluminium-lock.png',
     }
 
     // Filter berdasarkan ID spesifik & urutkan sesuai ORDER

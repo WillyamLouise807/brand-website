@@ -53,7 +53,7 @@
           
           <!-- Product Categories Filter -->
           <div class="text-white">
-            <p class="mb-2">Product Categories</p>
+            <p class="mb-2">Categories Type</p>
             <select 
               v-model="filters.category_id" 
               @change="onFilterChange"

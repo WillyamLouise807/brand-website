@@ -68,32 +68,32 @@
           <ul class="space-y-3">
             <li>
               <NuxtLink to="/product?category=1" class="text-gray-300 hover:text-white transition-colors duration-300">
-                Handle Roses
+                Aluminium Door
+              </NuxtLink>
+            </li>
+            <li>
+              <NuxtLink to="/product?category=4" class="text-gray-300 hover:text-white transition-colors duration-300">
+                Glass Door
               </NuxtLink>
             </li>
             <li>
               <NuxtLink to="/product?category=5" class="text-gray-300 hover:text-white transition-colors duration-300">
-                Mortise Lock
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/product?category=13" class="text-gray-300 hover:text-white transition-colors duration-300">
-                Engsel Casement
+                Glass Accessories
               </NuxtLink>
             </li>
             <li>
               <NuxtLink to="/product?category=9" class="text-gray-300 hover:text-white transition-colors duration-300">
-                Floor Hinge
+                Sliding Door
               </NuxtLink>
             </li>
             <li>
               <NuxtLink to="/product?category=10" class="text-gray-300 hover:text-white transition-colors duration-300">
-                Patch Fitting
+                Aluminium Accessories
               </NuxtLink>
             </li>
             <li>
               <NuxtLink to="/product?category=12" class="text-gray-300 hover:text-white transition-colors duration-300">
-                Glass Accessories
+                Roller Caster
               </NuxtLink>
             </li>
           </ul>
