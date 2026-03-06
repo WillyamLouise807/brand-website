@@ -31,9 +31,10 @@
       <hr class="border-gray-300 mb-12"/> 
 
       <div class="grid grid-cols-1 p-5 md:p-0 md:grid-cols-3 gap-6 sm:gap-8">
+        <!-- GLATINO CATALOGUE -->
         <a href="/assets/catalog-glatino-premium.pdf" download>
           <div class="relative cursor-pointer">
-            <img src="/catalog.png" alt="" class="w-full">
+            <img src="/catalog-glatino-cover.png" alt="" class="w-full">
 
             <!-- Text Overlay -->
             <div class="absolute bottom-4 left-4 text-white">
@@ -42,7 +43,20 @@
             </div>
           </div>
         </a>
-      </div>
+
+        <!-- KOVA CATALOGUE -->
+        <a href="/assets/catalog-kova-premium.pdf" download>
+          <div class="relative cursor-pointer">
+            <img src="/catalog-kova-cover.png" alt="" class="w-full">
+
+            <!-- Text Overlay -->
+            <div class="absolute bottom-4 left-4 text-white">
+              <p class="text-lg uppercase sm:text-2xl md:text-3xl font-semibold">Smartlock By Kova</p>
+              <p class="text-sm sm:text-base lg:text-lg font-thin">Download</p>
+            </div>
+          </div>
+        </a>
+      </div>      
     </div>
   </div>
   <FooterComponent />
