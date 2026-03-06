@@ -123,7 +123,7 @@
             <!-- Phone -->
             <div>
               <a href="https://wa.me/6288983494764" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors duration-300">
-                Phone: +62 2138764 362
+                Phone: +62 889-8349-4764
               </a>
             </div>
             
