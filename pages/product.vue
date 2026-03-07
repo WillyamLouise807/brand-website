@@ -3,7 +3,7 @@
     <!-- Background Image Section -->
     <BannerProduct />      
 
-    <div class="container mx-auto py-16 font-gotham">
+    <div class="container mx-auto py-16 font-gotham p-5 md:p-0">
       <!-- Breadcrumb -->
       <div class="mb-8">
         <nav class="flex" aria-label="Breadcrumb">
@@ -147,7 +147,7 @@
         </div>
 
         <!-- Categories Grid -->
-        <div v-else class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 justify-center items-center">
+        <div v-else class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 justify-center items-center pb-12">
           <div 
             v-for="category in categories" 
             :key="category.id"
@@ -204,7 +204,7 @@
       </div>
 
       <!-- CONDITION 2: Show Products (Filter IS Active) -->
-      <div v-if="isFilterActive">
+      <div v-if="isFilterActive" class="py-5">
         <!-- Products Count -->
         <div class="mb-8 mt-12 font-gotham">
           <nav class="flex" aria-label="Breadcrumb">
