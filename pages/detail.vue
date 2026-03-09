@@ -85,7 +85,7 @@
         <!-- Product Detail Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-[8%_38%_24%_30%] gap-2 my-20">
 
-          <!-- ================= THUMBNAIL ================= -->        
+          <!-- ================= THUMBNAIL ================= -->
           <div class="flex items-center justify-center">
             <div class="p-4 h-[320px] overflow-y-auto custom-scroll">
               <div
@@ -97,8 +97,8 @@
                 <img
                   :src="img"
                   class="h-[90px] object-contain transition duration-300"
-                  :class="selectedImage === img 
-                    ? 'opacity-100 scale-105' 
+                  :class="selectedImage === img
+                    ? 'opacity-100 scale-105'
                     : 'opacity-50 hover:opacity-80'"
                   @error="handleImageError"
                 />
@@ -109,8 +109,8 @@
           <!-- ================= PREVIEW ================= -->
           <div class="flex items-center justify-center bg-white">
             <div class="w-[400px] h-[500px] flex items-center justify-center overflow-hidden">
-              <img 
-                :src="selectedImage" 
+              <img
+                :src="selectedImage"
                 class="max-w-full max-h-full object-contain transition duration-300"
                 @click="openZoom(selectedImage)"
                 @error="handleImageError"
@@ -118,7 +118,7 @@
             </div>
           </div>
 
-          <!-- ================= SECTION INFO PRODUK (LEFT) ================= -->        
+          <!-- ================= SECTION INFO PRODUK (LEFT) ================= -->
           <div class="py-10 flex flex-col justify-between h-full">
             <!-- PRODUCT NAME -->
             <div>
@@ -126,10 +126,13 @@
               <p class="mt-3 text-xl tracking-wide">{{ product.product_name }}</p>
             </div>
 
-            <!-- COLOR -->
-            <div>
-              <h3 class="text-2xl font-bold tracking-widest">COLOR</h3>
-              <p class="mt-3 text-xl tracking-wide">{{ product.color || '-' }}</p>
+            <!-- COLOR + TYPE -->
+            <div class="flex gap-16">
+              <div>
+                <h3 class="text-2xl font-bold tracking-widest">COLOR</h3>
+                <p class="mt-3 text-xl tracking-wide">{{ product.color || '-' }}</p>
+              </div>
+              
             </div>
 
             <!-- MATERIAL -->
@@ -139,26 +142,25 @@
             </div>
           </div>
 
-          <!-- ================= SECTION INFO (RIGHT) ================= -->        
-          <div class="pt-10 flex flex-col justify-between h-full">
+          <!-- ================= SECTION INFO (RIGHT) ================= -->
+          <div class="pt-10 flex flex-col h-full">
             <!-- PRODUCT CODE -->
             <div>
               <h3 class="text-2xl font-bold uppercase tracking-[2px]">PRODUCT CODE</h3>
               <p class="mt-3 text-xl tracking-wide">{{ product.product_code }}</p>
             </div>
 
-            <!-- PRODUCT DESCRIPTION -->
-            <!-- <div>
-              <h3 class="mt-10 text-2xl font-bold uppercase tracking-[2px]">PRODUCT DESCRIPTION</h3>
-              <p class="mt-3 text-xl tracking-wide whitespace-pre-line">{{ product.description }}</p>
-            </div> -->
+            <div v-if="productType !== null" class="mt-[100px]">
+              <h3 class="text-2xl font-bold tracking-widest">TYPE</h3>
+              <p class="mt-3 text-xl tracking-wide">{{ productType }}</p>
+            </div>
 
             <!-- DIMENSION -->
             <div v-if="sizeImageUrl" class="mt-10">
               <h3 class="text-2xl font-bold uppercase tracking-[2px] mb-6">DIMENSION</h3>
               <div class="w-[370px] h-[300px] flex items-center justify-center overflow-hidden">
-                <img 
-                  :src="dimensionImage" 
+                <img
+                  :src="dimensionImage"
                   class="max-w-full max-h-full object-contain transition duration-300"
                   @click="openZoom(dimensionImage)"
                   @error="handleImageError"
@@ -595,6 +597,21 @@ const productImages = computed<string[]>(() => {
 // Get dimension image
 const dimensionImage = computed<string>(() => {
   return sizeImageUrl.value
+})
+
+// TYPE: only shown for specific product IDs
+const PRODUCT_TYPE_MAP: Record<number, string> = {
+  98: 'No Brake', 99: 'With Brake',
+  100: 'No Brake', 101: 'No Brake', 102: 'With Brake',
+  103: 'No Brake', 104: 'With Brake', 105: 'No Brake',
+  106: 'With Brake', 107: 'No Brake', 108: 'With Brake',
+  109: 'Fixed', 110: 'Swivel', 111: 'Swivel With Brake',
+  112: 'Fixed', 113: 'Swivel', 114: 'Swivel With Brake',
+}
+
+const productType = computed<string | null>(() => {
+  if (!product.value) return null
+  return PRODUCT_TYPE_MAP[product.value.id] ?? null
 })
 
 // ============================================
