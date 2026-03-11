@@ -131,14 +131,19 @@
               <div>
                 <h3 class="text-2xl font-bold tracking-widest">COLOR</h3>
                 <p class="mt-3 text-xl tracking-wide">{{ product.color || '-' }}</p>
-              </div>
-              
+              </div>              
             </div>
 
             <!-- MATERIAL -->
             <div>
               <h3 class="text-2xl font-bold tracking-widest">MATERIAL</h3>
               <p class="mt-3 text-xl tracking-wide">{{ product.materials?.map(m => m.material_name).join(', ') || '-' }}</p>
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="">
+              <h3 class="text-2xl font-bold tracking-widest">DESCRIPTION</h3>
+              <p class="mt-3 text-sm tracking-wide whitespace-pre-line">{{ product.description || '-' }}</p>
             </div>
           </div>
 
@@ -150,10 +155,10 @@
               <p class="mt-3 text-xl tracking-wide">{{ product.product_code }}</p>
             </div>
 
-            <div v-if="productType !== null" class="mt-[100px]">
+            <!-- <div v-if="productType !== null" class="mt-[100px]">
               <h3 class="text-2xl font-bold tracking-widest">TYPE</h3>
               <p class="mt-3 text-xl tracking-wide">{{ productType }}</p>
-            </div>
+            </div> -->
 
             <!-- DIMENSION -->
             <div v-if="sizeImageUrl" class="mt-10">
@@ -168,7 +173,10 @@
               </div>
             </div>
           </div>
+          
         </div>
+
+        
 
         <hr class="border-gray-300"/>
 

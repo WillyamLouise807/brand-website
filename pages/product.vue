@@ -5,7 +5,7 @@
 
     <div class="container mx-auto py-16 font-gotham p-5 md:p-0">
       <!-- Breadcrumb -->
-      <div class="mb-8">
+      <div class="py-8">
         <nav class="flex" aria-label="Breadcrumb">
           <ol class="inline-flex items-center space-x-1 md:space-x-2">
             <li class="inline-flex items-center">
