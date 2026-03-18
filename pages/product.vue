@@ -233,14 +233,11 @@
           >
             <!-- Product Image with Fixed Height -->
             <div class="h-64 relative p-4">
-              <div class="w-full h-full flex items-center justify-center">
-                <img
-                  :src="getProductImage(product)"
-                  :alt="product.product_name"
-                  class="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105"
-                  @error="handleImageError"
-                >
-              </div>
+              <CachedImg
+                :src="getProductImage(product)"
+                :alt="product.product_name"
+                class="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105"
+              />
             </div>
 
             <!-- Product Info - Fixed Height -->
@@ -327,6 +324,27 @@ interface Filters {
 const API_BASE = 'https://backend-brand-website.vercel.app/api/api'
 
 // ============================================
+// CACHE HELPERS (stale-while-revalidate)
+// ============================================
+const CACHE_TTL = 10 * 60 * 1000 // 10 minutes
+
+const getCache = <T>(key: string): T | null => {
+  try {
+    const item = localStorage.getItem(key)
+    if (!item) return null
+    const { data, timestamp } = JSON.parse(item)
+    if (Date.now() - timestamp > CACHE_TTL) return null
+    return data as T
+  } catch { return null }
+}
+
+const setCache = (key: string, data: unknown) => {
+  try {
+    localStorage.setItem(key, JSON.stringify({ data, timestamp: Date.now() }))
+  } catch {}
+}
+
+// ============================================
 // STATE
 // ============================================
 const route = useRoute()
@@ -369,20 +387,23 @@ const isFilterActive = computed(() => {
 
 // Fetch Categories
 const fetchCategories = async () => {
+  // Show cached data instantly if available
+  const cached = getCache<Category[]>('categories')
+  if (cached) {
+    categories.value = cached
+    loadingCategories.value = false
+  }
+
   try {
-    loadingCategories.value = true
     const response = await axios.get(`${API_BASE}/categories/`)
-    
     let data = response.data
-    if (Array.isArray(data)) {
-      categories.value = data
-    } else if (data?.data) {
-      categories.value = data.data
-    } else if (data?.results) {
-      categories.value = data.results
-    }
-    
-    console.log('✅ Categories loaded:', categories.value)
+    let result: Category[] = []
+    if (Array.isArray(data)) result = data
+    else if (data?.data) result = data.data
+    else if (data?.results) result = data.results
+
+    categories.value = result
+    setCache('categories', result)
   } catch (error) {
     console.error('❌ Error fetching categories:', error)
   } finally {
@@ -392,20 +413,23 @@ const fetchCategories = async () => {
 
 // Fetch Materials
 const fetchMaterials = async () => {
+  // Show cached data instantly if available
+  const cached = getCache<Material[]>('materials')
+  if (cached) {
+    materials.value = cached
+    loadingMaterials.value = false
+  }
+
   try {
-    loadingMaterials.value = true
     const response = await axios.get(`${API_BASE}/materials/`)
-    
     let data = response.data
-    if (Array.isArray(data)) {
-      materials.value = data
-    } else if (data?.data) {
-      materials.value = data.data
-    } else if (data?.results) {
-      materials.value = data.results
-    }
-    
-    console.log('✅ Materials loaded:', materials.value)
+    let result: Material[] = []
+    if (Array.isArray(data)) result = data
+    else if (data?.data) result = data.data
+    else if (data?.results) result = data.results
+
+    materials.value = result
+    setCache('materials', result)
   } catch (error) {
     console.error('❌ Error fetching materials:', error)
   } finally {
@@ -413,43 +437,67 @@ const fetchMaterials = async () => {
   }
 }
 
+// Helper: parse API response to array
+const parseProducts = (data: unknown): Product[] => {
+  if (Array.isArray(data)) return data as Product[]
+  const d = data as Record<string, unknown>
+  if (d?.data) return d.data as Product[]
+  if (d?.results) return d.results as Product[]
+  return []
+}
+
+// Pre-fetch semua products ke cache (dipanggil di background, tanpa loading state)
+const prefetchAllProducts = async () => {
+  if (getCache<Product[]>('products_all')) return // sudah ada cache
+  try {
+    const response = await axios.get(`${API_BASE}/products/`)
+    const result = parseProducts(response.data)
+    setCache('products_all', result)
+  } catch {}
+}
+
+// Filter dari full product cache (client-side)
+const filterFromCache = (): Product[] | null => {
+  const all = getCache<Product[]>('products_all')
+  if (!all) return null
+  return all.filter(p => {
+    const matchCat = !filters.value.category_id || p.category_id === Number(filters.value.category_id)
+    const matchMat = !filters.value.material_id || p.material_id === Number(filters.value.material_id)
+    return matchCat && matchMat
+  })
+}
+
 // Fetch Products with Filters
 const fetchProducts = async () => {
-  try {
+  // Coba tampilkan dari cache dulu (instan)
+  const fromCache = filterFromCache()
+  if (fromCache) {
+    products.value = fromCache
+    loadingProducts.value = false
+  } else {
     loadingProducts.value = true
-    
-    // Build query params
+  }
+
+  try {
     const params = new URLSearchParams()
-    
-    if (filters.value.category_id) {
-      params.append('category_id', String(filters.value.category_id))
-    }
-    if (filters.value.material_id) {
-      params.append('material_id', String(filters.value.material_id))
-    }
-    
-    // Jika ada params, gunakan /filter endpoint, jika tidak gunakan / endpoint
-    const url = params.toString() 
+    if (filters.value.category_id) params.append('category_id', String(filters.value.category_id))
+    if (filters.value.material_id) params.append('material_id', String(filters.value.material_id))
+
+    const url = params.toString()
       ? `${API_BASE}/products/filter?${params.toString()}`
       : `${API_BASE}/products/`
-    
-    console.log('🔍 Fetching products from:', url)
-    
+
     const response = await axios.get(url)
-    
-    let data = response.data
-    if (Array.isArray(data)) {
-      products.value = data
-    } else if (data?.data) {
-      products.value = data.data
-    } else if (data?.results) {
-      products.value = data.results
+    const result = parseProducts(response.data)
+    products.value = result
+
+    // Update full cache juga jika fetch tanpa filter
+    if (!filters.value.category_id && !filters.value.material_id) {
+      setCache('products_all', result)
     }
-    
-    console.log('✅ Products loaded:', products.value)
   } catch (error) {
     console.error('❌ Error fetching products:', error)
-    products.value = []
+    if (!fromCache) products.value = []
   } finally {
     loadingProducts.value = false
   }
@@ -457,31 +505,29 @@ const fetchProducts = async () => {
 
 // Search Products
 const searchProducts = async () => {
-  if (!searchQuery.value.trim()) {
-    return fetchProducts()
-  }
-  
-  try {
+  if (!searchQuery.value.trim()) return fetchProducts()
+
+  const q = searchQuery.value.trim().toLowerCase()
+
+  // Coba search dari cache dulu (instan)
+  const all = getCache<Product[]>('products_all')
+  if (all) {
+    products.value = all.filter(p =>
+      p.product_name.toLowerCase().includes(q) ||
+      p.product_code.toLowerCase().includes(q)
+    )
+    loadingProducts.value = false
+  } else {
     loadingProducts.value = true
-    
+  }
+
+  try {
     const url = `${API_BASE}/products/search?q=${encodeURIComponent(searchQuery.value.trim())}`
-    console.log('🔍 Searching products:', url)
-    
     const response = await axios.get(url)
-    
-    let data = response.data
-    if (Array.isArray(data)) {
-      products.value = data
-    } else if (data?.data) {
-      products.value = data.data
-    } else if (data?.results) {
-      products.value = data.results
-    }
-    
-    console.log('✅ Search results:', products.value)
+    products.value = parseProducts(response.data)
   } catch (error) {
     console.error('❌ Error searching products:', error)
-    products.value = []
+    if (!all) products.value = []
   } finally {
     loadingProducts.value = false
   }
@@ -576,6 +622,9 @@ onMounted(async () => {
     fetchCategories(),
     fetchMaterials()
   ])
+
+  // Pre-fetch semua products di background agar klik category langsung instan
+  prefetchAllProducts()
 
   // Check if category is passed via query params (from homepage)
   const categoryParam = route.query.category

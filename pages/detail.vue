@@ -282,14 +282,11 @@
             >
               <!-- Product Image with Fixed Height -->
               <div class="h-64 relative p-4 bg-gray-50">
-                <div class="w-full h-full flex items-center justify-center">
-                  <img
-                    :src="getProductImage(recProduct)"
-                    :alt="recProduct.product_name"
-                    class="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105"
-                    @error="handleImageError"
-                  >
-                </div>
+                <CachedImg
+                  :src="getProductImage(recProduct)"
+                  :alt="recProduct.product_name"
+                  class="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                />
               </div>
 
               <!-- Product Info - Fixed Height -->

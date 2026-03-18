@@ -170,12 +170,14 @@
                   transition-all duration-300 ease-out
                   hover:scale-105 hover:border-red-500"
         >
-          <!-- Image langsung tanpa wrapper - PERSIS seperti kode pertama -->
-          <img class="h-[400px] sm:h-[320px] md:h-[400px] rounded-3xl"
-            :src="category.image_url || '/placeholder.png'" 
-            :alt="category.category_name"
-            @error="handleImageError"
-          >
+          <!-- Image dengan caching -->
+          <div class="h-[400px] sm:h-[320px] md:h-[400px] rounded-3xl overflow-hidden">
+            <CachedImg
+              :src="category.image_url || '/placeholder.png'"
+              :alt="category.category_name"
+              class="w-full h-full object-cover rounded-3xl"
+            />
+          </div>
           
           <!-- Category Info -->
           <div class="py-6">
@@ -437,15 +439,48 @@ const handleMouseLeave = () => {
 }
 
 // ============================================
+// CACHE HELPERS
+// ============================================
+const CACHE_TTL = 10 * 60 * 1000
+
+const getCache = <T>(key: string): T | null => {
+  try {
+    const item = localStorage.getItem(key)
+    if (!item) return null
+    const { data, timestamp } = JSON.parse(item)
+    if (Date.now() - timestamp > CACHE_TTL) return null
+    return data as T
+  } catch { return null }
+}
+
+const setCache = (key: string, data: unknown) => {
+  try {
+    localStorage.setItem(key, JSON.stringify({ data, timestamp: Date.now() }))
+  } catch {}
+}
+
+// ============================================
 // CATEGORIES API
 // ============================================
-const categories = ref<Category[]>([])
+
+interface CategoryCached {
+  id: number
+  category_name: string
+  image_url: string | null
+}
+
+const categories = ref<CategoryCached[]>([])
 const loadingCategories = ref(true)
 
 const fetchCategories = async () => {
-  try {
-    loadingCategories.value = true
+  // Tampilkan dari cache instan jika ada
+  const cached = getCache<CategoryCached[]>('index_categories')
+  if (cached) {
+    categories.value = cached
+    loadingCategories.value = false
+  }
 
+  try {
     const response = await axios.get('https://backend-brand-website.vercel.app/api/api/categories/')
     let data = response.data
 
@@ -468,11 +503,13 @@ const fetchCategories = async () => {
       .filter(Boolean) as Category[]
 
     // Override image dengan local image
-    categories.value = filtered.map(c => ({
+    const result = filtered.map(c => ({
       ...c,
       image_url: localImages[c.id] ?? c.image_url
     }))
 
+    categories.value = result
+    setCache('index_categories', result)
     console.log('✅ Categories loaded:', categories.value)
 
   } catch (error: any) {
@@ -482,11 +519,6 @@ const fetchCategories = async () => {
   }
 }
 
-// Handle image error (fallback to placeholder)
-const handleImageError = (event: Event) => {
-  const target = event.target as HTMLImageElement
-  target.src = '/placeholder.png'
-}
 
 // ============================================
 // REVIEWS CAROUSEL
